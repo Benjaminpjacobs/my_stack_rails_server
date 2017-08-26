@@ -30,6 +30,7 @@ gem 'bcrypt', '~> 3.1.7'
 gem 'faraday'
 gem 'httparty'
 gem 'omniauth'
+gem 'omniauth-github'
 gem 'figaro'
 
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
