@@ -1,4 +1,10 @@
 Rails.application.routes.draw do
-  root to: 'welcome#index'
+  
   get "/auth/:provider/callback", to: "sessions#create"
+  # get 'auth/failure', to redirect('/')
+  delete 'signout', to: 'sessions#destroy', as:'signout'
+  root to: 'sessions#new'
+  resources :users,  only: [:create]
+
+  
 end
