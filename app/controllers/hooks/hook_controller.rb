@@ -1,33 +1,37 @@
 class Hooks::HookController < ApplicationController
+  def new
+    service = GithubService.new(current_user.token)
+    @repos = JSON.parse(service.get_repos.body)
+  end 
+
+  def edit
+    service = GithubService.new(current_user.token)
+    @repos = JSON.parse(service.get_repos.body)
+  end 
+
   def create
-    conn = Faraday.new(:url => "https://api.github.com") 
-    repos = conn.get do |req|
-      req.url "/user/repos?type"
-      req.headers['Authorization'] = "token #{current_user.token}"
-      req.params['type'] = 'all'
-      req.params['sort'] = 'updated'
-      req.params['per_page'] = '100'
-    end
+    service = GithubService.new(current_user.token)
+    repos = repo_params.select{|k, v| v == '1'}.keys
     
-    repo_list = JSON.parse(repos.body).map{|repo| repo['full_name']}
-    
-    repo_list.each do |repo|
-      conn.post do |req|
-        req.url "/repos/#{repo}/hooks"
-        req.headers['Authorization'] = "token #{current_user.token}"
-        req.body = '{
-          "name": "web",
-          "active": true,
-          "events": [
-            "push",
-            "pull_request"
-          ],
-          "config": {
-            "url": "https://f41cdce5.ngrok.io/hooks/github",
-            "content_type": "json"
-          }
-          }'
-        end
-      end
+    repos.each do |repo|
+      service.set_web_hook(repo)
     end
+    redirect_to root_path
+  end
+
+  def delete
+    service = GithubService.new(current_user.token)
+    repos = repo_params.select{|k, v| v == '1'}.keys
+    
+    repos.each do |repo|
+      hook = service.get_hook(repo)
+      id = JSON.parse(hook.body).first['id']
+      service.delete_web_hook(repo, id)
+    end
+    redirect_to root_path
+  end
+
+  def repo_params
+    params.require(:form_fields)
+  end
 end

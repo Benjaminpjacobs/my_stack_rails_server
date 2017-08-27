@@ -8,7 +8,13 @@ Rails.application.routes.draw do
 
   namespace :hooks do
     post '/github', to: 'github#received'
-    post '/hook', to: 'hook#create', as:'hook'
+    # get '/hook', to: 'hook#new', as: 'new'
+    # post '/hook', to: 'hook#create'
+    # get '/hook', to: 'hook#edit', as: "edit"
+    # delete '/hook', to: 'hook#delete'
+    resources :hook, only: [:new, :create]
+    match 'hook/edit' => 'hook#edit', :via => :get
+    match 'hook/destroy' => 'hook#delete', :via => :delete
   end
 
   

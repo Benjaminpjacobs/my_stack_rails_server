@@ -7,5 +7,6 @@
   </p>
 
   <%= button_to "Sign Out", signout_path, method: :delete %>
-  <%= button_to "Hook Repos", hooks_hook_path, method: :post%>
+  <%= button_to "Set Hooks", new_hooks_hook_path, method: :get%>
+  <%= button_to "Edit Hooks", hooks_hook_edit_path,  method: :get%>
 <% end %>
