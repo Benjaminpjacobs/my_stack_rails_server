@@ -16,6 +16,7 @@ class Hooks::HookController < ApplicationController
     repos.each do |repo|
       service.set_web_hook(repo)
     end
+    
     redirect_to root_path
   end
 
@@ -28,6 +29,7 @@ class Hooks::HookController < ApplicationController
       id = JSON.parse(hook.body).first['id']
       service.delete_web_hook(repo, id)
     end
+
     redirect_to root_path
   end
 
