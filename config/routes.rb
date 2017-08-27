@@ -6,5 +6,10 @@ Rails.application.routes.draw do
   root to: 'sessions#new'
   resources :users,  only: [:create]
 
+  namespace :hooks do
+    post '/github', to: 'github#received'
+    post '/hook', to: 'hook#create', as:'hook'
+  end
+
   
 end

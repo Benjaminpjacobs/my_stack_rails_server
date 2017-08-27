@@ -2,7 +2,6 @@ class User < ApplicationRecord
 
 
   def self.from_omniauth(auth)
-    binding.pry
     where(provider: auth.provider, uid: auth.uid).first_or_initialize.tap do |user|
       user.email = auth.info.email
       user.username = auth.info.nickname
