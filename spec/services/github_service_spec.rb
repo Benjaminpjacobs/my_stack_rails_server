@@ -7,7 +7,6 @@ RSpec.describe "Github Service" do
 
   it "should get repos" do
     VCR.use_cassette("github_service/get_repos") do
-      # service = GithubService.new('b738cee1dd40e951493105ea08cd927333628899')
       response = @service.get_repos
       repos = JSON.parse(response.body, symbolize_names: true)
       repo = repos.first
@@ -33,7 +32,6 @@ RSpec.describe "Github Service" do
 
   it "should list repo names" do
     VCR.use_cassette("github_service/get_repos") do
-      # service = GithubService.new('b738cee1dd40e951493105ea08cd927333628899')
       repo_list = @service.repo_list
       expect(repo_list).to be_an Array
       expect(repo_list.length).to eq(82)

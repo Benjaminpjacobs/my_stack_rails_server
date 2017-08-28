@@ -19,7 +19,7 @@ class GithubService
   end
 
   def set_web_hook(repo)
-    resp = @conn.post do |req|
+    @conn.post do |req|
       req.url "/repos/#{repo}/hooks"
       req.headers['Authorization'] = "token #{@token}"
       req.body = JSON.generate({"name": "web", "active": true, "events": ["push","pull_request"],"config": {"url": "#{ENV["GITHUB_WEBHOOK_URL"]}","content_type": "json"}})
@@ -27,15 +27,9 @@ class GithubService
   end
 
   def delete_web_hook(repo, id)
-    resp = @conn.delete do |req|
+    @conn.delete do |req|
       req.url "/repos/#{repo}/hooks/#{id}"
       req.headers['Authorization'] = "token #{@token}"
-    end
-  end
-
-  def delete_all_web_hooks
-    hook_list.each do |repo, hook|
-      delete_web_hook(repo, hook.first['id']) if hook.first && !hook.first.include?('Not Found')
     end
   end
 
@@ -51,6 +45,13 @@ class GithubService
       req.headers['Authorization'] = "token #{@token}"
     end
   end
+  
+  def delete_all_web_hooks
+    hook_list.each do |repo, hook|
+      delete_web_hook(repo, hook.first['id']) if hook.first && !hook.first.include?('Not Found')
+    end
+  end
+
 
   def hook_list
     @hook_list ||= repo_list.map do |repo|
