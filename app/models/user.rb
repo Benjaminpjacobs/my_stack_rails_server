@@ -1,4 +1,9 @@
 class User < ApplicationRecord
+  validates :email, presence: :true, uniqueness: :true
+  validates :provider, presence: :true
+  validates :token, presence: :true
+  validates :uid, presence: :true
+  validates :username, presence: :true
 
 
   def self.from_omniauth(auth)

@@ -5,7 +5,7 @@ class GithubService
   end
 
   def get_repos
-    @response = @conn.get do |req|
+    @response ||= @conn.get do |req|
       req.url "/user/repos?type"
       req.headers['Authorization'] = "token #{@token}"
       req.params['type'] = 'all'
@@ -15,7 +15,7 @@ class GithubService
   end
 
   def repo_list
-    @repo_list ||= JSON.parse(@response.body).map{|repo| repo['full_name']}
+    @repo_list ||= JSON.parse(get_repos.body).map{|repo| repo['full_name']}
   end
 
   def set_web_hook(repo)

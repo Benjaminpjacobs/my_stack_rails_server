@@ -32,7 +32,6 @@ gem 'httparty'
 gem 'omniauth'
 gem 'omniauth-github'
 gem 'figaro'
-
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 gem 'kaminari'
 gem 'haml'
@@ -46,6 +45,8 @@ group :development, :test do
   gem 'shoulda-matchers'
   gem 'factory_girl_rails', '~> 4.0'
   gem 'pry-rails'
+  gem 'vcr'
+  gem 'webmock'
 end
 
 group :development do
