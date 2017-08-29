@@ -1,12 +1,14 @@
 <% if current_user.blank? %>
-  <h1>Please Sign In</h1>
-  <%= link_to 'Sign In with Github', '/auth/github' %>
-<% else %>
-  <p>
-    You are signed in as <%= current_user.username %>.  Click the button below to sign out.
-  </p>
+    <h1>Please Sign In</h1>
+    <%= link_to 'Sign In with Github', '/auth/github' %>
+        <% else %>
+            <p>
+                You are signed in as
+                <%= current_user.username %>. Click the button below to sign out.
+            </p>
 
-  <%= button_to "Sign Out", signout_path, method: :delete %>
-  <%= button_to "Set Hooks", new_hooks_hook_path, method: :get%>
-  <%= button_to "Edit Hooks", hooks_hook_edit_path,  method: :get%>
-<% end %>
+            <%= button_to "Sign Out", signout_path, method: :delete %>
+                <%= button_to "Set Hooks", new_hooks_hook_path, method: :get%>
+                    <%= button_to "Edit Hooks", hooks_hook_edit_path,  method: :get%>
+                        <%= button_to "Main Page", main_path,  method: :get%>
+                            <% end %>

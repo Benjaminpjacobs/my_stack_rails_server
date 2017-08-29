@@ -1,0 +1,32 @@
+<!--socket.io.js is automatically added by node-->
+<script src="http://localhost:8080/socket.io/socket.io.js"></script>
+<!--jQuery Used For Some Frontend Tasks-->
+<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+<p id="stat"><strong>Status:</strong>Not Connected</p>
+<h2>Socket.io Chat Tutorial:</h2>
+<ul></ul>
+<input id="field" placeholder="Wait..." type="text"><input type="button" value="Go" id="btn">
+<script>
+    //Connecting To socket.io
+    var socket =
+        io.connect(
+            'http://localhost:8080', {
+                reconnect: true
+            }
+        )
+
+    socket.on("msg", function(data) {
+        $.ajax({
+                method: "get",
+                url: "http://localhost:3000/pings/server",
+                data: {
+                    name: "John",
+                    location: "Boston"
+                }
+            })
+            .then(function(data) {
+                $('ul').append(`<li>${data.msg}</li>`)
+            })
+
+    })
+</script>
