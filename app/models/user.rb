@@ -4,6 +4,9 @@ class User < ApplicationRecord
   validates :token, presence: :true
   validates :uid, presence: :true
   validates :username, presence: :true
+  has_many :messages, dependent: :destroy
+  has_many :users_services
+  has_many :services, through: :users_services
 
 
   def self.from_omniauth(auth)

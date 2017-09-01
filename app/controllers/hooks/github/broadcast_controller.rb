@@ -1,4 +1,4 @@
-class Hooks::HookController < ApplicationController
+class Hooks::Github::BroadcastController < ApplicationController
   def new
     service = GithubService.new(current_user.token)
     @repos = JSON.parse(service.get_repos.body)
@@ -12,6 +12,9 @@ class Hooks::HookController < ApplicationController
   def create
     service = GithubService.new(current_user.token)
     repos = repo_params.select{|k, v| v == '1'}.keys
+    
+    provider = Service.find_by_name('github')
+    current_user.services << provider unless current_user.services.include?(provider)
     
     repos.each do |repo|
       service.set_web_hook(repo)
@@ -29,7 +32,6 @@ class Hooks::HookController < ApplicationController
       id = JSON.parse(hook.body).first['id']
       service.delete_web_hook(repo, id)
     end
-
     redirect_to root_path
   end
 

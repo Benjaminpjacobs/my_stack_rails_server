@@ -1,4 +1,4 @@
-<%= form_tag( '/hooks/hook/destroy', method: :delete) do |f| %>
+<%= form_tag( '/hooks/github/broadcast/destroy', method: :delete) do |f| %>
 <%= fields_for :form_fields do |ff|%>
     <% @repos.each do |repo| %>
       <%= ff.check_box repo['full_name'] %>

@@ -22,7 +22,7 @@ class GithubService
     @conn.post do |req|
       req.url "/repos/#{repo}/hooks"
       req.headers['Authorization'] = "token #{@token}"
-      req.body = JSON.generate({"name": "web", "active": true, "events": ["push","pull_request"],"config": {"url": "#{ENV["GITHUB_WEBHOOK_URL"]}","content_type": "json"}})
+      req.body = JSON.generate({"name": "web", "active": true, "events": ["issues", "pull_request"],"config": {"url": "#{ENV["GITHUB_WEBHOOK_URL"]}","content_type": "json"}})
     end
   end
 

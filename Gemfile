@@ -36,6 +36,8 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 gem 'kaminari'
 gem 'haml'
 gem 'erb2haml', group: :development
+gem 'jquery-rails'
+gem 'active_model_serializers', '~> 0.9.3'
 
 group :development, :test do
   gem 'capybara', '~> 2.13'

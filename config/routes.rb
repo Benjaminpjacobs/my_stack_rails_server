@@ -1,22 +1,25 @@
 Rails.application.routes.draw do
   
-  get "/auth/:provider/callback", to: "sessions#create"
-  # get 'auth/failure', to redirect('/')
-  delete 'signout', to: 'sessions#destroy', as:'signout'
   root to: 'sessions#new'
+  get "/auth/:provider/callback", to: "sessions#create"
+  delete 'signout', to: 'sessions#destroy', as:'signout'
+
   resources :users,  only: [:create]
+
   get '/main', to: 'main#index'
 
 
   namespace :hooks do
-    post '/github', to: 'github#received'
-    resources :hook, only: [:new, :create]
-    match 'hook/edit' => 'hook#edit', :via => :get
-    match 'hook/destroy' => 'hook#delete', :via => :delete
+    namespace :github do
+      post '/reception', to: 'reception#received'
+      resources :broadcast, only: [:new, :create]
+      match 'broadcast/edit' => 'broadcast#edit', :via => :get
+      match 'broadcast/destroy' => 'broadcast#delete', :via => :delete
+    end
   end
 
   namespace :pings do
-    get '/server', to: 'server#receive_ping'
+    get '/server', to: 'messages#receive_ping'
   end
   
 end
