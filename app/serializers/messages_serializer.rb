@@ -1,5 +1,5 @@
 class MessagesSerializer < ActiveModel::Serializer
-  attributes :repo, :from, :link, :event_type
+  attributes :repo, :from, :link, :event_type, :id
 
   def repo
     eval(object.message["repository"])["name"]

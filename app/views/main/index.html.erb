@@ -1,17 +1,86 @@
 <h2>Incoming Messages</h2>
 <button id='reload-messages' data-id=<%=current_user.id%>>Reload</button>
-<ul></ul>
+<div id='app-messages'></div>
 <script>
   document.addEventListener('DOMContentLoaded', () => {
-    $('h1');
-    var socket =
+    const BACKEND_URI = ""
+    const user = document.querySelector('#reload-messages').dataset.id;
+    const EventHub = new Vue({});
+
+    const GitHubEvent = {
+      name: 'GitHubEvent',
+      props: {
+          message: {
+            type: Object,
+            required: true,
+          },
+          markAsComplete: {
+            type: Function,
+            required: true,
+          },
+      },
+      template: `
+        <div> 
+          <h3>{{ message.event_type }}:</h3> 
+            <p> Repo: {{ message.repo }} </p>
+            <p> Sender:{{ message.from }}</p> 
+            <button @click="markAsComplete(message.id)">Completed</button>
+            <a :href="message.link" >See on Github</a>
+        </div>
+      `
+    }
+
+    new Vue({
+        name: 'appMessages',
+        el: '#app-messages',
+        components: {
+          GitHubEvent,
+        },
+        data() {
+            return {
+                user,
+                messages: [],
+            };
+        },
+        methods: {
+          fetchData() {
+            $.ajax({
+                    method: "get",
+                    url: `http://localhost:3000/pings/server?id=${this.user}`,
+                })
+                .then((data) => {
+                    this.messages = data.messages;
+                });
+          },
+          markAsComplete(id){
+            console.log('compelted')
+            $.ajax({
+              method: "patch",
+              url: `http://localhost:3000/pings/server?msg_id=${id}`,
+            })
+            .then(()=>{
+              this.fetchData()
+            })
+          },
+        },
+        created() {
+            EventHub.$on('socket-update', this.fetchData);
+            this.fetchData();
+        },
+        template: `
+          <ul>
+            <li v-for="message in messages" :key="message.id">
+                <GitHubEvent :message="message" :markAsComplete="markAsComplete" />
+            </li>
+          </ul>
+        `,
+    })
+    const socket =
         io.connect(
             'http://localhost:8080', {
                 reconnect: true
             }
         )
-
-    socket.on("msg", (user) => retrieveMessages(user))
+    socket.on("msg", (user) => EventHub.$emit('socket-update'))
   });
 </script>
-<%= javascript_include_tag "get_messages.js" %>
