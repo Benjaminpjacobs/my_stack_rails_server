@@ -1,22 +1,14 @@
 class Hooks::Github::ReceptionController < HookBaseController
   def received
     event_type = request.headers["X-GitHub-Event"]
-    payload = JSON.parse(request.body.read)
-    user = User.find_by_uid(payload["sender"]["id"])
-    # payload    = JSON.parse(request.body)
-    # case event_type
-    # when "repository"
-    #   # process_repository(payload)
-    # when "issues"
-    #   # process_issue(payload)
-    # when "pull_request"
-    #   # process_pull_requests(payload)
-    # else
-    #   puts "Oooh, something new from GitHub: #{event_type}"
-    # end
-
-    Message.store(payload, user)
-    service = WebsocketService.new
-    service.post_message(user.id)
+    payload    = JSON.parse(request.body.read)
+    user       = User.find_by_uid(payload["sender"]["id"])
+    if event_type == "issues" || event_type == "pull_request"
+      Message.store(payload, user, event_type)
+      service = WebsocketService.new
+      service.post_message(user.id)
+    else
+      puts "New #{event_type} from GitHub"
+    end
   end
 end

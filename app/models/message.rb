@@ -3,7 +3,7 @@ class Message < ApplicationRecord
   belongs_to :user
   enum status: {received: 0, sent: 1, archived: 0}
 
-  def self.store(push, user)
-    user.messages.create(message: push)
+  def self.store(push, user, type)
+    user.messages.create(message: push, event_type: type)
   end
 end

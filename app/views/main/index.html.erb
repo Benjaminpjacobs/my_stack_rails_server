@@ -1,8 +1,9 @@
-<script src="http://localhost:8080/socket.io/socket.io.js"></script>
-<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 <h2>Incoming Messages</h2>
+<button id='reload-messages' data-id=<%=current_user.id%>>Reload</button>
 <ul></ul>
 <script>
+  document.addEventListener('DOMContentLoaded', () => {
+    $('h1');
     var socket =
         io.connect(
             'http://localhost:8080', {
@@ -10,17 +11,7 @@
             }
         )
 
-    socket.on("msg", function(user) {
-        debugger
-        $.ajax({
-                method: "get",
-                url: `http://localhost:3000/pings/server?id=${user}`,
-            })
-            .then(function(data) {
-                data.forEach(function(message) {
-                    $('ul').append(`<li>${message.message.zen}</li>`)
-                })
-            })
-
-    })
+    socket.on("msg", (user) => retrieveMessages(user))
+  });
 </script>
+<%= javascript_include_tag "get_messages.js" %>
