@@ -20,6 +20,7 @@ Rails.application.routes.draw do
 
   namespace :pings do
     get '/server', to: 'messages#receive_ping'
+    patch '/server', to: 'messages#mark_read'
   end
   
 end
