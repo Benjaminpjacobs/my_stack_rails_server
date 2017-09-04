@@ -14,6 +14,7 @@ class Hooks::Github::BroadcastController < ApplicationController
     repos = repo_params.select{|k, v| v == '1'}.keys
     
     provider = Service.find_by_name('github')
+    binding.pry
     current_user.services << provider unless current_user.services.include?(provider)
     
     repos.each do |repo|

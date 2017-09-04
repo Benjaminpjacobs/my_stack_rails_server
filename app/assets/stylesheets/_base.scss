@@ -1,0 +1,48 @@
+body {
+    font-family: 'Poppins', sans-serif;
+    font-size: 18px;
+    font-weight: 300;
+}
+
+img {
+    width: 100px;
+    height: 100px;
+}
+
+.logo {
+    width: 350px;
+    height: 250px;
+}
+
+.message {
+    padding: 10px;
+    margin: 10px;
+    border-radius: 5px;
+    background-color: #A8A8A8;
+    color: #F5F5F5;
+    width: 400px;
+    display: flex;
+    justify-content: space-around;
+    align-content: center;
+    align-items: center;
+    h3 {
+        font-size: 1.2em;
+        padding: 5px;
+    }
+    p {
+        font-family: 'Open Sans', sans-serif;
+        padding: 5px;
+    }
+    button {
+        margin: 10px 5px;
+        border-style: none;
+        height: 30px;
+        width: 100px;
+        background-color: #FEBB55;
+        color: white;
+        font-size: .80em;
+        font-weight: 800;
+        letter-spacing: 0.1ch;
+        border-radius: 5px;
+    }
+}

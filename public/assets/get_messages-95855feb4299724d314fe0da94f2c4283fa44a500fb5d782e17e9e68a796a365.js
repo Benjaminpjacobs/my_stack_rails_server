@@ -14,38 +14,17 @@ document.addEventListener('DOMContentLoaded', () => {
             markAsComplete: {
                 type: Function,
                 required: true,
-            }
-        },
-        data() {
-            return {
-                show: false,
-            }
-        },
-        methods: {
-            flipShow() {
-                this.show = !this.show
             },
-            removeMessage(id) {
-                this.flipShow();
-                this.markAsComplete(id);
-            },
-        },
-        created() {
-            this.flipShow()
         },
         template: `
-        <transition name="bounce">
-          <div class='message' v-if="show" >   
-              <div>
-                <h3>{{ message.event_type }}</h3> 
-                <p> Repo: {{ message.repo }} </p>
-                <p> Sender:{{ message.from }}</p> 
-                <button @click="removeMessage(message.id)">Completed</button>
-                <a :href="message.link" target='blank'><button>Github</button></a>
-              </div>
-              <img src='/assets/octocat.png'>
-          </div>
-        </transition>
+      <div class='message'> 
+          <h3>{{ message.event_type }}</h3> 
+          <p> Repo: {{ message.repo }} </p>
+          <p> Sender:{{ message.from }}</p> 
+          <button @click="markAsComplete(message.id)">Completed</button>
+          <a :href="message.link" target='blank'>See on Github</a>
+          <img src='app/assets/images/octocat.png'>
+      </div>
     `
     }
 
@@ -75,10 +54,12 @@ document.addEventListener('DOMContentLoaded', () => {
             },
             markAsComplete(id) {
                 $.ajax({
-                    method: "patch",
-                    url: `${BACKEND_URI}?msg_id=${id}`,
-                })
-
+                        method: "patch",
+                        url: `${BACKEND_URI}?msg_id=${id}`,
+                    })
+                    .then(() => {
+                        this.fetchData(this.user)
+                    })
             },
         },
         created() {
