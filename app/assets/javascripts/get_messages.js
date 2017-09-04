@@ -1,29 +1,83 @@
-$(document).ready(function() {
-    // ((glp) => {
-    $('#reload-messages').on('click', function(event) {
-            const user = $(event.currentTarget).data().id
-            retrieveMessages(user)
-        })
-        // })(window.glp || (window.glp = {}));
-})
+document.addEventListener('DOMContentLoaded', () => {
+    const BACKEND_URI = document.querySelector('#app-messages').dataset.url;
+    const SOCKET_URI = document.querySelector('#app-messages').dataset.socket;
+    const user = document.querySelector('#app-messages').dataset.id;
+    const EventHub = new Vue({});
 
-function retrieveMessages() {
+    const GitHubEvent = {
+        name: 'GitHubEvent',
+        props: {
+            message: {
+                type: Object,
+                required: true,
+            },
+            markAsComplete: {
+                type: Function,
+                required: true,
+            },
+        },
+        template: `
+      <div> 
+        <h3>{{ message.event_type }}:</h3> 
+          <p> Repo: {{ message.repo }} </p>
+          <p> Sender:{{ message.from }}</p> 
+          <button @click="markAsComplete(message.id)">Completed</button>
+          <a :href="message.link" target='blank'>See on Github</a>
+      </div>
+    `
+    }
 
-
-    // $.ajax({
-    //         method: "get",
-    //         url: `http://localhost:3000/pings/server?id=${user}`,
-    //     })
-    //     .then(function(data) {
-    //         data.messages.forEach(function(message) {
-    //             $('ul').append(`<li>
-    //               <div class='gh-message'>
-    //               <h3>${message.event_type}:<h3> 
-    //               <p> Repo: ${message.repo} </p>
-    //               <p> Sender:${message.from}</p> 
-    //               <a href=${message.link}>See on Github</a> 
-    //               </div>
-    //               </li>`)
-    //         })
-    //     })
-}
+    new Vue({
+        name: 'appMessages',
+        el: '#app-messages',
+        components: {
+            GitHubEvent,
+        },
+        data() {
+            return {
+                user,
+                messages: [],
+            };
+        },
+        methods: {
+            fetchData(id) {
+                if (id === this.user) {
+                    $.ajax({
+                            method: "get",
+                            url: `${BACKEND_URI}?id=${this.user}`,
+                        })
+                        .then((data) => {
+                            this.messages = data.messages;
+                        });
+                }
+            },
+            markAsComplete(id) {
+                $.ajax({
+                        method: "patch",
+                        url: `${BACKEND_URI}?msg_id=${id}`,
+                    })
+                    .then(() => {
+                        this.fetchData(this.user)
+                    })
+            },
+        },
+        created() {
+            EventHub.$on('socket-update', this.fetchData);
+            this.fetchData(this.user);
+        },
+        template: `
+        <ul>
+          <li v-for="message in messages" :key="message.id">
+              <GitHubEvent :message="message" :markAsComplete="markAsComplete" />
+          </li>
+        </ul>
+      `,
+    })
+    const socket =
+        io.connect(
+            `${SOCKET_URI}`, {
+                reconnect: true
+            }
+        )
+    socket.on("msg", (id) => EventHub.$emit('socket-update', id))
+});
