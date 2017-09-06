@@ -3,7 +3,8 @@ class SessionsController < ApplicationController
   end
   
   def create
-    user = User.from_omniauth(request.env['omniauth.auth'])
+    binding.pry
+    user = User.find_for_oauth(request.env['omniauth.auth'])
     if user.valid?
       session[:user_id] = user.id
       redirect_to request.env['omniauth.origin']
