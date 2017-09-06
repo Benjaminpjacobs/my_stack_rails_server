@@ -5,7 +5,7 @@ class User < ApplicationRecord
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
-  devise :omniauthable, :omniauth_providers => [:github, :google_oauth2]
+  devise :omniauthable, :omniauth_providers => [:github, :google_oauth2, :slack]
   
   # validates :email, presence: :true, uniqueness: :true
   # validates :provider, presence: :true
@@ -21,6 +21,7 @@ class User < ApplicationRecord
   def self.find_for_oauth(auth, signed_in_resource = nil)
       # Get the identity and user if they exist
       identity = Identity.find_for_oauth(auth)
+      binding.pry
   
       # If a signed_in_resource is provided it always overrides the existing user
       # to prevent the identity being locked with accidentally created accounts.

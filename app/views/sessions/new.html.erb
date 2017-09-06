@@ -2,6 +2,7 @@
     <h1>Please Sign In</h1>
     <%= link_to 'Sign In with Github', user_github_omniauth_authorize_path %>
     <%= link_to 'Sign In with Google', user_google_oauth2_omniauth_authorize_path %>
+    <%= link_to 'Sign In with Slack', user_slack_omniauth_authorize_path %>
         <% else %>
             <p>
                 You are signed in as
