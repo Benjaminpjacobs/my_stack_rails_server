@@ -6,7 +6,6 @@ class Identity < ApplicationRecord
   def self.find_for_oauth(auth)
 
     id = find_or_create_by(uid: auth.uid, provider: auth.provider)
-    binding.pry
     id.tap do |i|
       i.token = auth.credentials.token
       i.refresh_token = auth.credentials.refresh_token || nil

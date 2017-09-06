@@ -3,7 +3,6 @@ class SessionsController < ApplicationController
   end
   
   def create
-    binding.pry
     user = User.find_for_oauth(request.env['omniauth.auth'])
     if user.valid?
       session[:user_id] = user.id

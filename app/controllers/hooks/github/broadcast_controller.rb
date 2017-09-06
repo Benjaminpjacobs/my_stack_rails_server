@@ -1,20 +1,20 @@
 class Hooks::Github::BroadcastController < ApplicationController
+  before_action :set_token
   def new
-    service = GithubService.new(current_user.token)
+    service = GithubService.new(@token)
     @repos = JSON.parse(service.get_repos.body)
   end 
 
   def edit
-    service = GithubService.new(current_user.token)
+    service = GithubService.new(@token)
     @repos = JSON.parse(service.get_repos.body)
   end 
 
   def create
-    service = GithubService.new(current_user.token)
+    service = GithubService.new(@token)
     repos = repo_params.select{|k, v| v == '1'}.keys
     
     provider = Service.find_by_name('github')
-    binding.pry
     current_user.services << provider unless current_user.services.include?(provider)
     
     repos.each do |repo|
@@ -25,7 +25,7 @@ class Hooks::Github::BroadcastController < ApplicationController
   end
 
   def delete
-    service = GithubService.new(current_user.token)
+    service = GithubService.new(@token)
     repos = repo_params.select{|k, v| v == '1'}.keys
     
     repos.each do |repo|
@@ -35,8 +35,12 @@ class Hooks::Github::BroadcastController < ApplicationController
     end
     redirect_to root_path
   end
+  private
+    def repo_params
+      params.require(:form_fields)
+    end
 
-  def repo_params
-    params.require(:form_fields)
-  end
+    def set_token
+      @token = current_user.identities.where(provider: 'github').first.token
+    end
 end

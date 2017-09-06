@@ -86,7 +86,7 @@ document.addEventListener('DOMContentLoaded', () => {
             this.fetchData(this.user);
         },
         template: `
-        <ul>
+        <ul class='messages'>
           <li v-for="message in messages" :key="message.id">
               <GitHubEvent :message="message" :markAsComplete="markAsComplete" />
           </li>

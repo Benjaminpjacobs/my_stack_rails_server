@@ -21,7 +21,6 @@ class User < ApplicationRecord
   def self.find_for_oauth(auth, signed_in_resource = nil)
       # Get the identity and user if they exist
       identity = Identity.find_for_oauth(auth)
-      binding.pry
   
       # If a signed_in_resource is provided it always overrides the existing user
       # to prevent the identity being locked with accidentally created accounts.
@@ -38,7 +37,6 @@ class User < ApplicationRecord
         # email_is_verified = auth.info.email && (auth.info.verified || auth.info.verified_email)
         email = auth.info.email #if email_is_verified
         user = User.where(:email => email).first if email
-        binding.pry
   
         # Create the user if it's a new registration
         if user.nil?
@@ -48,14 +46,12 @@ class User < ApplicationRecord
             email: email ? email : "#{TEMP_EMAIL_PREFIX}-#{auth.uid}-#{auth.provider}.com",
             password: Devise.friendly_token[0,20]
           )
-          binding.pry
           user.save!
 
         end
       end
   
       # Associate the identity with the user if needed
-      binding.pry
       if identity.user != user
         identity.user = user
         identity.save!
