@@ -81,5 +81,8 @@ test:
 production:
   <<: *default
   database: my_stack_rails_server_production
-  username: my_stack_rails_server
+  # username: my_stack_rails_server
   password: <%= ENV['MY_STACK_RAILS_SERVER_DATABASE_PASSWORD'] %>
+  adapter: postgresql
+  pool: 5
+  encoding: unicode

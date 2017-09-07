@@ -1,6 +1,7 @@
 document.addEventListener('DOMContentLoaded', () => {
     const BACKEND_URI = document.querySelector('#app-messages').dataset.url;
     const SOCKET_URI = document.querySelector('#app-messages').dataset.socket;
+    const GITHUB_IMG = document.querySelector('#app-messages').dataset.ghimage;
     const user = document.querySelector('#app-messages').dataset.id;
     const EventHub = new Vue({});
 
@@ -43,7 +44,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 <button @click="removeMessage(message.id)">Completed</button>
                 <a :href="message.link" target='blank'><button>Github</button></a>
               </div>
-              <img src='/assets/octocat.png'>
+              <img src=${GITHUB_IMG}>
           </div>
         </transition>
     `
