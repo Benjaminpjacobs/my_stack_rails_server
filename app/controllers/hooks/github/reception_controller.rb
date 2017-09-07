@@ -6,7 +6,6 @@ class Hooks::Github::ReceptionController < HookBaseController
     if event_type == "issues" || event_type == "pull_request"
       Message.store(payload, user, event_type, 1)
       service = WebsocketService.new
-      binding.pry
       service.post_message(user.id)
     else
       render status: 200;

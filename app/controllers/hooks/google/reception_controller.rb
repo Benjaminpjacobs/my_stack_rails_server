@@ -1,6 +1,5 @@
 class Hooks::Google::ReceptionController < HookBaseController
   def received
-    binding.pry
     event_type = request.headers["X-GitHub-Event"]
     payload    = JSON.parse(request.body.read)
     user       = Identity.find_by_uid(payload["sender"]["id"]).user

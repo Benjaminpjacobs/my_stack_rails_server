@@ -63,15 +63,13 @@ document.addEventListener('DOMContentLoaded', () => {
         },
         methods: {
             fetchData(id) {
-                if (id === this.user) {
-                    $.ajax({
-                            method: "get",
-                            url: `${BACKEND_URI}?id=${this.user}`,
-                        })
-                        .then((data) => {
-                            this.messages = data.messages;
-                        });
-                }
+                $.ajax({
+                        method: "get",
+                        url: `${BACKEND_URI}?id=${this.user}`,
+                    })
+                    .then((data) => {
+                        this.messages = data.messages;
+                    });
             },
             markAsComplete(id) {
                 $.ajax({
@@ -94,11 +92,10 @@ document.addEventListener('DOMContentLoaded', () => {
       `,
     })
 
-    const socket =
-        io.connect(
-            `${SOCKET_URI}`, {
-                reconnect: true
-            }
-        )
+    const socket = io.connect(`https://my-stack-websocket.herokuapp.com`, {
+        reconnect: true
+    });
+
+    socket.on('connect', () => console.log('connected'));
     socket.on("msg", (id) => EventHub.$emit('socket-update', id))
 });
