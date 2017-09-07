@@ -1,16 +1,8 @@
-<% if current_user.blank? %>
-    <h1>Please Sign In</h1>
-    <%= link_to 'Sign In with Github', user_github_omniauth_authorize_path %>
-    <%= link_to 'Sign In with Google', user_google_oauth2_omniauth_authorize_path %>
-    <%= link_to 'Sign In with Slack', user_slack_omniauth_authorize_path %>
-        <% else %>
-            <p>
-                You are signed in as
-                <%= current_user.username %>. Click the button below to sign out.
-            </p>
-
-    <%= button_to "Sign Out", signout_path, method: :delete %>
-    <%= button_to "Set Hooks", new_hooks_github_broadcast_path, method: :get%>
-    <%= button_to "Edit Hooks", hooks_github_broadcast_edit_path,  method: :get%>
-    <%= button_to "Main Page", main_path,  method: :get%>
-    <% end %>
+<div>
+  <div class='header'>
+      <%= image_tag 'myStackLogo.png', class:'logo' %>
+  </div>
+  <div class='sign-in'>
+    <%= render current_user.blank? ? 'guest' : 'user' %>
+  </div>
+</div>
