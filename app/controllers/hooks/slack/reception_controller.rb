@@ -1,6 +1,6 @@
 class Hooks::Slack::ReceptionController < HookBaseController
   def received
-    # payload    = JSON.parse(request.body.read)
+    payload    = JSON.parse(request.body.read)
     # msg_token = payload['token']
     # from_user_id = payload['event']['user']
     # id = Identity.find_by_uid(payload['authed_users'].first) if payload['authed_users']
