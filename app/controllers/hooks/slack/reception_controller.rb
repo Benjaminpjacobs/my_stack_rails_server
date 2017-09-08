@@ -2,7 +2,7 @@ class Hooks::Slack::ReceptionController < HookBaseController
   def received
     payload    = JSON.parse(request.body.read)
     msg_token = payload['token']
-    id = Identity.find_by_uid(payload['event']['user']) if payload['event']
+    id = Identity.find_by_uid(payload['authed_users'].first) if payload['authed_users']
     user = id.user if id
     if user
       Message.store(payload, user, 'message', 2)

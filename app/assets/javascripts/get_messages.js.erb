@@ -40,6 +40,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     <div>
                       <h3>{{ message.event_type }}</h3> 
                       <p> Message: {{ message.message_text }} </p>
+                      <p>sender: {{ message.message_sender}} </p>
                       <button @click="removeMessage(message.id)">Completed</button>
                       <a :href="message.link" target='blank'><button>Github</button></a>
                     </div>
