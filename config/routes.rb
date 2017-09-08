@@ -18,9 +18,11 @@ Rails.application.routes.draw do
     namespace :google do
       post '/reception', to: 'reception#received'
     end
+
     namespace :slack do
       post '/reception', to: 'reception#received'
     end
+    
     namespace :github do
       post '/reception', to: 'reception#received'
       resources :broadcast, only: [:new, :create]
