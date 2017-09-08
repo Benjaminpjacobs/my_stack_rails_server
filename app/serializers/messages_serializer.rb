@@ -6,15 +6,7 @@ class MessagesSerializer < ActiveModel::Serializer
   end
   
   def message_sender
-    from_user = eval(object.message['event'])['user'] if object.message['event']
-    to_user = eval(object.message['authed_users']).first if object.message['authed_users']
-    id = Identity.find_by_uid(to_user)
-    token = id.token if id
-    if token
-      service = SlackService.new(token)
-      user_info = service.get_user_name(from_user)
-      user_info['user']['name'] if user_info['user']
-    end
+    eval(object.message['event'])['user'] if object.message['event']
   end
 
   def message_text

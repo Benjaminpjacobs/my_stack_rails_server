@@ -109,14 +109,16 @@ document.addEventListener('DOMContentLoaded', () => {
             };
         },
         methods: {
-            fetchData(id) {
-                $.ajax({
-                        method: "get",
-                        url: `${BACKEND_URI}?id=${this.user}`,
-                    })
-                    .then((data) => {
-                        this.messages = data.messages;
-                    });
+            fetchData(ping) {
+                if (ping.user_id == this.user) {
+                    $.ajax({
+                            method: "get",
+                            url: `${BACKEND_URI}?id=${this.user}`,
+                        })
+                        .then((data) => {
+                            this.messages = data.messages;
+                        });
+                }
             },
             markAsComplete(id) {
                 $.ajax({
@@ -128,7 +130,8 @@ document.addEventListener('DOMContentLoaded', () => {
         },
         created() {
             EventHub.$on('socket-update', this.fetchData);
-            this.fetchData(this.user);
+            user_id = this.user
+            this.fetchData({ user_id: user_id, service_id: [] });
         },
         template: `
         <ul class='messages'>
@@ -144,6 +147,13 @@ document.addEventListener('DOMContentLoaded', () => {
         reconnect: true
     });
 
+
+    // const socket = io.connect(`http://localhost:8080`, {
+    //     reconnect: true
+    // });
+
     socket.on('connect', () => console.log('connected'));
-    socket.on("msg", (id) => EventHub.$emit('socket-update', id))
+    socket.on("msg", (ping) => {
+        EventHub.$emit('socket-update', ping)
+    })
 });
