@@ -2,8 +2,53 @@ document.addEventListener('DOMContentLoaded', () => {
     const BACKEND_URI = document.querySelector('#app-messages').dataset.url;
     const SOCKET_URI = document.querySelector('#app-messages').dataset.socket;
     const GITHUB_IMG = document.querySelector('#app-messages').dataset.ghimage;
+    const SLACK_IMG = document.querySelector('#app-messages').dataset.slackimage;
     const user = document.querySelector('#app-messages').dataset.id;
     const EventHub = new Vue({});
+    const SlackEvent = {
+        name: 'SlackEvent',
+        props: {
+            message: {
+                type: Object,
+                required: true,
+            },
+            markAsComplete: {
+                type: Function,
+                required: true,
+            }
+        },
+        data() {
+            return {
+                show: false,
+            }
+        },
+        methods: {
+            flipShow() {
+                this.show = !this.show
+            },
+            removeMessage(id) {
+                this.flipShow();
+                this.markAsComplete(id);
+            },
+        },
+        created() {
+            this.flipShow()
+        },
+        template: `
+              <transition name="bounce">
+                <div class='message' v-if="show" >   
+                    <div>
+                      <h3>{{ message.event_type }}</h3> 
+                      <p> Message: {{ message.message_text }} </p>
+                      <p>sender: {{ message.message_sender}} </p>
+                      <button @click="removeMessage(message.id)">Completed</button>
+                      <a :href="message.link" target='blank'><button>Github</button></a>
+                    </div>
+                    <img src=${SLACK_IMG}>
+                </div>
+              </transition>
+          `
+    }
 
     const GitHubEvent = {
         name: 'GitHubEvent',
@@ -55,6 +100,7 @@ document.addEventListener('DOMContentLoaded', () => {
         el: '#app-messages',
         components: {
             GitHubEvent,
+            SlackEvent,
         },
         data() {
             return {
@@ -63,14 +109,16 @@ document.addEventListener('DOMContentLoaded', () => {
             };
         },
         methods: {
-            fetchData(id) {
-                $.ajax({
-                        method: "get",
-                        url: `${BACKEND_URI}?id=${this.user}`,
-                    })
-                    .then((data) => {
-                        this.messages = data.messages;
-                    });
+            fetchData(ping) {
+                if (ping.user_id == this.user) {
+                    $.ajax({
+                            method: "get",
+                            url: `${BACKEND_URI}?id=${this.user}`,
+                        })
+                        .then((data) => {
+                            this.messages = data.messages;
+                        });
+                }
             },
             markAsComplete(id) {
                 $.ajax({
@@ -82,12 +130,14 @@ document.addEventListener('DOMContentLoaded', () => {
         },
         created() {
             EventHub.$on('socket-update', this.fetchData);
-            this.fetchData(this.user);
+            user_id = this.user
+            this.fetchData({ user_id: user_id, service_id: [] });
         },
         template: `
         <ul class='messages'>
-          <li v-for="message in messages" :key="message.id">
-              <GitHubEvent :message="message" :markAsComplete="markAsComplete" />
+          <li v-for="message in messages"  :key="message.id">
+              <GitHubEvent v-if="message.provider === 'github'" :message="message" :markAsComplete="markAsComplete" />
+              <SlackEvent v-if="message.provider === 'slack'" :message="message" :markAsComplete="markAsComplete" />
           </li>
         </ul>
       `,
@@ -97,6 +147,13 @@ document.addEventListener('DOMContentLoaded', () => {
         reconnect: true
     });
 
+
+    // const socket = io.connect(`http://localhost:8080`, {
+    //     reconnect: true
+    // });
+
     socket.on('connect', () => console.log('connected'));
-    socket.on("msg", (id) => EventHub.$emit('socket-update', id))
+    socket.on("msg", (ping) => {
+        EventHub.$emit('socket-update', ping)
+    })
 });
