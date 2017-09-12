@@ -6,7 +6,6 @@ class Hooks::Google::BroadcastController < ApplicationController
       client.expires_in = Time.now + 1_000_000
       service = Google::Apis::GmailV1::GmailService.new
       service.authorization = client
-      binding.pry
       watch_request = Google::Apis::GmailV1::WatchRequest.new
       watch_request.topic_name= 'projects/rich-tine-178917/topics/myStack'
       response = service.watch_user('me', watch_request)
@@ -23,7 +22,6 @@ class Hooks::Google::BroadcastController < ApplicationController
       service.authorization = client
       service.stop_user('me')
       id.update_attributes(hooks_set: false, hook_expires: nil, hook_expires_at: nil)
-      binding.pry
       redirect_to main_path
     end
 end
