@@ -16,8 +16,8 @@ class Hooks::Google::ReceptionController < HookBaseController
     id =messages.messages.first.id
     msg = service.get_user_message('me', id)
 
-    subject_header =  msg.payload.headers.select{|header| header.name == "Subject"}.first
-    subject = subject_header ? subject_header.value : "(no subject)"
+    subject_header =  msg.payload.headers.select{|header| header.name == "Subject"}
+    subject = subject_header ? subject_header.fist.value : "(no subject)"
 
     from =  msg.payload.headers.select{|header| header.name == "From"}.first.value
     
