@@ -1,4 +1,4 @@
-class Hooks::Github::ReceptionController < HookBaseController
+class Hooks::Github::ReceptionController < ActionController::API
   def received
     event_type = request.headers["X-GitHub-Event"]
     payload    = JSON.parse(request.body.read)
