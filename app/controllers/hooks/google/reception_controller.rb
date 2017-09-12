@@ -22,8 +22,8 @@ class Hooks::Google::ReceptionController < HookBaseController
     payload = {from: from, snippet: snippet, data: data}
     if msg.label_ids.include?('UNREAD') && msg.label_ids.include?('INBOX')
       Message.store(payload, user, 'message', 3)
-      # service = WebsocketService.new
-      # service.post_message({user_id: user.id, service_id: 3})
+      service = WebsocketService.new
+      service.post_message({user_id: user.id, service_id: 3})
     end
   end
 
