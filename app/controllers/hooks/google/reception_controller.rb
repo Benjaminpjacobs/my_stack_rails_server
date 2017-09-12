@@ -15,19 +15,20 @@ class Hooks::Google::ReceptionController < HookBaseController
     messages = service.list_user_messages('me')
     id =messages.messages.first.id
     msg = service.get_user_message('me', id)
-
-    subject_header =  msg.payload.headers.select{|header| header.name == "Subject"}
-    subject = subject_header ? subject_header.first.value : "(no subject)"
-
-    from =  msg.payload.headers.select{|header| header.name == "From"}.first.value
-    
-    snippet = msg.snippet
-    
-    parts = msg.payload.parts
-    data = parts ? parts.first.body.data : "(no data)"
-    payload = {from: from, snippet: snippet, data: data, subject: subject}
     
     if msg.label_ids.include?('UNREAD') && msg.label_ids.include?('INBOX')
+
+      subject_header =  msg.payload.headers.select{|header| header.name == "Subject"}
+      subject = subject_header ? subject_header.first.value : "(no subject)"
+
+      from =  msg.payload.headers.select{|header| header.name == "From"}.first.value
+      
+      snippet = msg.snippet
+      
+      parts = msg.payload.parts
+      data = parts ? parts.first.body.data : "(no data)"
+      payload = {from: from, snippet: snippet, data: data, subject: subject}
+      
       Message.store(payload, user, 'message', 'google_oauth2')
       service = WebsocketService.new
       service.post_message({user_id: user.id, service_id: 3})
