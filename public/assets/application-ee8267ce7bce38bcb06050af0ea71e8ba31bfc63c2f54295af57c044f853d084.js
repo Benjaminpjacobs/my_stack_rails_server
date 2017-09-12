@@ -14682,8 +14682,55 @@ document.addEventListener('DOMContentLoaded', () => {
     const SOCKET_URI = document.querySelector('#app-messages').dataset.socket;
     const GITHUB_IMG = document.querySelector('#app-messages').dataset.ghimage;
     const SLACK_IMG = document.querySelector('#app-messages').dataset.slackimage;
+    const GMAIL_IMG = document.querySelector('#app-messages').dataset.gmail;
     const user = document.querySelector('#app-messages').dataset.id;
     const EventHub = new Vue({});
+    const GmailEvent = {
+        name: 'GmailEvent',
+        props: {
+            message: {
+                type: Object,
+                required: true,
+            },
+            markAsComplete: {
+                type: Function,
+                required: true,
+            }
+        },
+        data() {
+            return {
+                show: false,
+            }
+        },
+        methods: {
+            flipShow() {
+                this.show = !this.show
+            },
+            removeMessage(id) {
+                this.flipShow();
+                this.markAsComplete(id);
+            },
+        },
+        created() {
+            this.flipShow()
+        },
+        template: `
+            <transition name="bounce">
+              <div class='message' v-if="show" >   
+                  <div>
+                    <h3>{{ message.event_type }}</h3> 
+                    <p> Subject: {{ message.subject }} </p>
+                    <p> From: {{ message.email_address}} </p>
+                    <p> Message: {{ message.snippet }} </p>
+                    <button @click="removeMessage(message.id)">Completed</button>
+                    <a href="https://www.gmail.com" target='blank'><button>Gmail</button></a>
+                  </div>
+                  <img src=${GMAIL_IMG}>
+              </div>
+            </transition>
+        `
+    }
+
     const SlackEvent = {
         name: 'SlackEvent',
         props: {
@@ -14780,6 +14827,7 @@ document.addEventListener('DOMContentLoaded', () => {
         components: {
             GitHubEvent,
             SlackEvent,
+            GmailEvent,
         },
         data() {
             return {
@@ -14816,6 +14864,7 @@ document.addEventListener('DOMContentLoaded', () => {
         <ul class='messages'>
           <li v-for="message in messages"  :key="message.id">
               <GitHubEvent v-if="message.provider === 'github'" :message="message" :markAsComplete="markAsComplete" />
+              <GmailEvent v-if="message.provider === 'google_oauth2'" :message="message" :markAsComplete="markAsComplete" />
               <SlackEvent v-if="message.provider === 'slack'" :message="message" :markAsComplete="markAsComplete" />
           </li>
         </ul>
