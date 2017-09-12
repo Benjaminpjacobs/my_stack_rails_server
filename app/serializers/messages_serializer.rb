@@ -34,7 +34,7 @@ class MessagesSerializer < ActiveModel::Serializer
   end
 
   def email_address
-    object.message['from'].split('<').first
+    object.message['from'].split('<').first if object.message['from']
   end
 
   def subject

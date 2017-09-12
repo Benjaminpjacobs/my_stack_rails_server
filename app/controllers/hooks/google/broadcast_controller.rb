@@ -9,5 +9,6 @@ class Hooks::Google::BroadcastController < ApplicationController
       watch_request = Google::Apis::GmailV1::WatchRequest.new
       watch_request.topic_name= 'projects/rich-tine-178917/topics/myStack'
       service.watch_user('me', watch_request)
+      redirect_to main_path
     end
 end
