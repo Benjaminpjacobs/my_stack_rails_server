@@ -14717,7 +14717,7 @@ document.addEventListener('DOMContentLoaded', () => {
         template: `
             <transition name="bounce">
               <div class='message' v-if="show" >   
-                  <div>
+                  <div class='message-contents'>
                     <h3>{{ message.event_type }}</h3> 
                     <p> Subject: {{ message.subject }} </p>
                     <p> From: {{ message.email_address}} </p>
@@ -14763,12 +14763,12 @@ document.addEventListener('DOMContentLoaded', () => {
         template: `
               <transition name="bounce">
                 <div class='message' v-if="show" >   
-                    <div>
+                  <div class='message-contents'>
                       <h3>{{ message.event_type }}</h3> 
                       <p> Message: {{ message.message_text }} </p>
                       <p>sender: {{ message.message_sender}} </p>
                       <button @click="removeMessage(message.id)">Completed</button>
-                      <a :href="message.link" target='blank'><button>Github</button></a>
+                      <a href="https://slack.com/signin"  target='blank'><button>Slack</button></a>
                     </div>
                     <img src=${SLACK_IMG}>
                 </div>
@@ -14808,7 +14808,7 @@ document.addEventListener('DOMContentLoaded', () => {
         template: `
         <transition name="bounce">
           <div class='message' v-if="show" >   
-              <div>
+            <div class='message-contents'>
                 <h3>{{ message.event_type }}</h3> 
                 <p> Repo: {{ message.repo }} </p>
                 <p> Sender:{{ message.from }}</p> 
