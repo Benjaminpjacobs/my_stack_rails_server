@@ -38,7 +38,7 @@ document.addEventListener('DOMContentLoaded', () => {
         template: `
             <transition name="bounce">
               <div class='message' v-if="show" >   
-                  <div>
+                  <div class='message-contents'>
                     <h3>{{ message.event_type }}</h3> 
                     <p> Subject: {{ message.subject }} </p>
                     <p> From: {{ message.email_address}} </p>
@@ -84,7 +84,7 @@ document.addEventListener('DOMContentLoaded', () => {
         template: `
               <transition name="bounce">
                 <div class='message' v-if="show" >   
-                    <div>
+                  <div class='message-contents'>
                       <h3>{{ message.event_type }}</h3> 
                       <p> Message: {{ message.message_text }} </p>
                       <p>sender: {{ message.message_sender}} </p>
@@ -129,7 +129,7 @@ document.addEventListener('DOMContentLoaded', () => {
         template: `
         <transition name="bounce">
           <div class='message' v-if="show" >   
-              <div>
+            <div class='message-contents'>
                 <h3>{{ message.event_type }}</h3> 
                 <p> Repo: {{ message.repo }} </p>
                 <p> Sender:{{ message.from }}</p> 
