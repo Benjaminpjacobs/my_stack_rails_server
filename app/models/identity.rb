@@ -8,8 +8,8 @@ class Identity < ApplicationRecord
     id = find_or_create_by(uid: auth.uid, provider: auth.provider)
     id.tap do |i|
       i.token = auth.credentials.token
-      i.refresh_token = auth.credentials.refresh_token || nil
-      i.expires_at = auth.credentials.expires_at || nil
+      i.refresh_token = auth.credentials.refresh_token if auth.credentials.refresh_token
+      i.expires_at = auth.credentials.expires_at if auth.credentials.expires_at
       i.save! unless i.new_record?
     end
   end
