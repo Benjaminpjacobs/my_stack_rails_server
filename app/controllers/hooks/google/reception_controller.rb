@@ -1,14 +1,30 @@
 class Hooks::Google::ReceptionController < HookBaseController
   def received
-    event_type = request.headers["X-GitHub-Event"]
-    payload    = JSON.parse(request.body.read)
-    user       = Identity.find_by_uid(payload["sender"]["id"]).user
-    if event_type == "issues" || event_type == "pull_request"
-      Message.store(payload, user, event_type)
-      service = WebsocketService.new
-      service.post_message(user.id)
-    else
-      puts "New #{event_type} from GitHub"
+    message = JSON.parse(request.body.read)
+    decoded = Base64.decode64(message['message']['data'])
+    parsed = JSON.parse(decoded)
+
+    user = User.find_by_email(parsed['emailAddress'])
+    token = user.identities.where(provider: 'google_oauth2').first.token
+    client = Signet::OAuth2::Client.new(access_token: token)
+    client.expires_in = Time.now + 1_000_000
+    service = Google::Apis::GmailV1::GmailService.new
+    service.authorization = client
+    
+    messages = service.list_user_messages('me')
+    id =messages.messages.first.id
+    msg = service.get_user_message('me', id)
+
+    from =  msg.payload.headers.select{|header| header.name == "From"}.first.value
+    snippet = msg.snippet
+    data = msg.payload.parts.first.body.data
+
+    payload = {from: from, snippet: snippet, data: data}
+    if msg.label_ids.include?('UNREAD') && msg.label_ids.include?('INBOX')
+      Message.store(payload, user, 'message', 3)
+      # service = WebsocketService.new
+      # service.post_message({user_id: user.id, service_id: 3})
     end
   end
+
 end

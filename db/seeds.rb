@@ -5,6 +5,8 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
+
 Service.create!(name:'github')
 Service.create!(name:'slack')
-Service.create!(name:'google')
+Service.create!(name:'google_ouauth2')
+Service.create!(name:'facebook')

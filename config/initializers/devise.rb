@@ -15,8 +15,11 @@ Devise.setup do |config|
   config.mailer_sender = 'please-change-me-at-config-initializers-devise@example.com'
 
   config.omniauth :github, ENV['GITHUB_KEY'], ENV['GITHUB_SECRET']
-  config.omniauth :google_oauth2, ENV['GOOGLE_ID'], ENV['GOOGLE_SECRET'], {}
+  config.omniauth :google_oauth2, ENV['GOOGLE_ID'], ENV['GOOGLE_SECRET'],{
+    scope: "https://www.google.com/calendar/feeds/ https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/auth/userinfo.profile https://www.googleapis.com/auth/calendar, https://mail.google.com/"
+  }
   config.omniauth :slack, ENV['SLACK_APP_ID'], ENV['SLACK_APP_SECRET'], scope: 'users:read,users:read.email,users.profile:read', team: 'Turing'
+  config.omniauth :facebook, ENV['FACEBOOK_ID'], ENV['FACEBOOK_SECRET'],scope: 'email,user_posts,user_events', info_fields: 'email,name'
   # Configure the class responsible to send e-mails.
   # config.mailer = 'Devise::Mailer'
 

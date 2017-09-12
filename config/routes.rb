@@ -17,9 +17,16 @@ Rails.application.routes.draw do
   namespace :hooks do
     namespace :google do
       post '/reception', to: 'reception#received'
+      resources :broadcast, only: [:new, :create]
+      get '/callback', to: 'broadcast#callback'
+      get '/labels', to: 'broadcast#labels'
     end
 
     namespace :slack do
+      post '/reception', to: 'reception#received'
+    end
+    
+    namespace :facebook do
       post '/reception', to: 'reception#received'
     end
     

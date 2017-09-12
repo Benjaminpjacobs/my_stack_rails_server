@@ -1,9 +1,28 @@
+<div class='settings-container'>
+<div  class='github-repos'>
 <%= form_tag( '/hooks/github/broadcast') do |f| %>
+<div class='repo-list'>
 <%= fields_for :form_fields do |ff|%>
     <% @repos.each do |repo| %>
+      <div>
       <%= ff.check_box repo['full_name'] %>
       <%= ff.label repo['name'] %>
+      </div>
     <%end%>
   <%end%>
-  <%= submit_tag %>
+  </div>
+  <!--<%= submit_tag 'Github', class:"btn btn-lg btn-block btn-social btn-github" %>-->
+  <button type ='submit'class= "btn btn-lg btn-block btn-social btn-github" >
+    <span class="fa fa-github"></span> Set Github Hooks
+  </button>
 <% end %>
+</div>
+
+<div class='google-links'>
+<%= link_to new_hooks_google_broadcast_path  do %>
+  <button class= "btn btn-lg btn-block btn-social btn-google" >
+    <span class="fa fa-google"></span> Set Google Hooks
+  </button>
+<%end%>
+</div>
+</div>

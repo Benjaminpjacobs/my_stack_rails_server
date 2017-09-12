@@ -5,7 +5,7 @@ class User < ApplicationRecord
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
-  devise :omniauthable, :omniauth_providers => [:github, :google_oauth2, :slack]
+  devise :omniauthable, :omniauth_providers => [:github, :google_oauth2, :slack, :facebook]
   
   # validates :email, presence: :true, uniqueness: :true
   # validates :provider, presence: :true

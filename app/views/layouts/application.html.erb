@@ -12,10 +12,33 @@
                 <!-- <script src="http://localhost:8080/socket.io/socket.io.js"></script> -->
                 <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
                 <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.4.2/vue.js"></script>
-                <meta name="google-site-verification" content="9Pr-SucAbyvUgO6xGsgaPXheaBdi32NnjsmNwA6GlKE" />
+                <!-- <meta name="google-site-verification" content="9Pr-SucAbyvUgO6xGsgaPXheaBdi32NnjsmNwA6GlKE" /> -->
+                <meta name="google-site-verification" content="1Jn2924KOBXA5ClK7I4Yxk5OWS25N8P9F-s9VxIFy-A" />
 </head>
 
 <body>
+    <script>
+        window.fbAsyncInit = function() {
+            FB.init({
+                appId: '{your-app-id}',
+                cookie: true,
+                xfbml: true,
+                version: '{latest-api-version}'
+            });
+            FB.AppEvents.logPageView();
+        };
+
+        (function(d, s, id) {
+            var js, fjs = d.getElementsByTagName(s)[0];
+            if (d.getElementById(id)) {
+                return;
+            }
+            js = d.createElement(s);
+            js.id = id;
+            js.src = "//connect.facebook.net/en_US/sdk.js";
+            fjs.parentNode.insertBefore(js, fjs);
+        }(document, 'script', 'facebook-jssdk'));
+    </script>
     <%if notice %>
         <div class="alert alert-success" role="alert">
             <%= notice %>

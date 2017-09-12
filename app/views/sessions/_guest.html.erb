@@ -1,31 +1,31 @@
 <%= link_to user_github_omniauth_authorize_path do %>
-<button class= "btn btn-lg btn-block btn-social btn-github" >
+    <button class="btn btn-lg btn-block btn-social btn-github">
   <span class="fa fa-github"></span> Sign in with Github
 </button>
-<%end%>
+    <%end%>
 
-<%= link_to user_google_oauth2_omniauth_authorize_path do %>
-<button class= "btn btn-lg btn-block btn-social btn-google" >
+        <%= link_to user_google_oauth2_omniauth_authorize_path do %>
+            <button class="btn btn-lg btn-block btn-social btn-google">
   <span class="fa fa-google"></span> Sign in with Google
 </button>
-<%end%>
+            <%end%>
 
 
-<%= link_to user_slack_omniauth_authorize_path do %>
-<button class= "btn btn-lg btn-block btn-social btn-slack" >
+                <%= link_to user_slack_omniauth_authorize_path do %>
+                    <button class="btn btn-lg btn-block btn-social btn-slack">
   <span class="fa fa-slack"></span> Sign in with Slack
 </button>
-<%end%>
+                    <%end%>
 
-<%= link_to '/' do %>
-<button class= "btn btn-lg btn-block btn-social btn-twitter" >
-  <span class="fa fa-twitter"></span> Sign in with Twitter
+                        <%= link_to user_facebook_omniauth_authorize_path do %>
+                            <button class="btn btn-lg btn-block btn-social btn-facebook">
+  <span class="fa fa-facebook"></span> Sign in with Facebook
 </button>
 
-<%end%>
+                            <%end%>
 
-<%= link_to '/' do %>
-  <button class= "btn btn-lg btn-block btn-social btn-facebook" >
-    <span class="fa fa-facebook"></span> Sign in with Facebook
+                                <%= link_to '/' do %>
+                                    <button class="btn btn-lg btn-block btn-social btn-twitter">
+    <span class="fa fa-twitter"></span> Sign in with Twitter
   </button>
-<%end%>
+                                    <%end%>

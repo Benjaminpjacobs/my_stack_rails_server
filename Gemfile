@@ -24,7 +24,7 @@ gem 'coffee-rails', '~> 4.2'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'jbuilder', '~> 2.5'
 gem 'bootstrap-sass', '~> 3.3.6'
-
+gem 'google-api-client', require: 'google/apis/gmail_v1'
 gem "font-awesome-rails"
 # Use Redis adapter to run Action Cable in production
 # gem 'redis', '~> 3.0'
@@ -37,6 +37,7 @@ gem 'omniauth'
 gem 'omniauth-github'
 gem 'omniauth-google-oauth2'
 gem 'omniauth-slack'
+gem 'omniauth-facebook'
 gem 'google-cloud'
 gem 'figaro'
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
