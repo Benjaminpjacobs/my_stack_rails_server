@@ -8,8 +8,8 @@ class Hooks::Github::ReceptionController < HookBaseController
       Message.store(payload, user, event_type, 'github')
       service = WebsocketService.new
       service.post_message({user_id: user.id, service_id: 1})
-    else
-      render status: 200;
     end
+    
+    render status: 200;
   end
 end
