@@ -10,6 +10,6 @@ class Hooks::Github::ReceptionController < ActionController::API
       service.post_message({user_id: user.id, service_id: 1})
     end
     
-    render status: 200;
+    render json: {"msg": "ok"}, status: 200;
   end
 end
