@@ -24,7 +24,7 @@ class Hooks::Google::ReceptionController < HookBaseController
     snippet = msg.snippet
     
     parts = msg.payload.parts
-    data = parts ? parts.first.body.data || "(no data)"
+    data = parts ? parts.first.body.data : "(no data)"
     payload = {from: from, snippet: snippet, data: data, subject: subject}
     
     if msg.label_ids.include?('UNREAD') && msg.label_ids.include?('INBOX')
