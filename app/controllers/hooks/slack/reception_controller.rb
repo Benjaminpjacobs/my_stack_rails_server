@@ -14,7 +14,7 @@ class Hooks::Slack::ReceptionController < HookBaseController
     end
     
     if user
-      Message.store(payload, user, 'message', 2)
+      Message.store(payload, user, 'message', 'slack')
       service = WebsocketService.new
       service.post_message({user_id: user.id, service_id: 2})
     else

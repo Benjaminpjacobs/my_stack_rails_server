@@ -4,7 +4,9 @@ class Message < ApplicationRecord
   belongs_to :service
   enum status: {received: 0, sent: 1, archived: 2}
 
-  def self.store(push, user, type, service_id)
-    user.messages.create(message: push, event_type: type, service_id: service_id)
+  def self.store(push, user, type, service)
+    binding.pry
+    service = Service.find_by_name(service)
+    user.messages.create(message: push, event_type: type, service_id: service.id)
   end
 end
