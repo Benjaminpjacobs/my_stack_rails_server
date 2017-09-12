@@ -11,4 +11,19 @@ class Hooks::Google::BroadcastController < ApplicationController
       service.watch_user('me', watch_request)
       redirect_to main_path
     end
+
+    def delete
+      token = current_user.identities.where(provider: 'google_oauth2').first.token
+      client = Signet::OAuth2::Client.new(access_token: token)
+      client.expires_in = Time.now + 1_000_000
+      service = Google::Apis::GmailV1::GmailService.new
+      service.authorization = client
+
+      stop_request = Google::Apis::GmailV1::StopRequest.new
+      binding.pry
+      stop_request.topic_name= 'projects/rich-tine-178917/topics/myStack'
+      service.stop_user('me', watch_request)
+      redirect_to main_path
+      
+    end
 end

@@ -18,6 +18,17 @@ class GithubService
     @repo_list ||= JSON.parse(get_repos.body).map{|repo| repo['full_name']}
   end
 
+  def reset_hooks
+    delete_all_web_hooks
+    set_all_web_hooks  
+  end
+
+  def set_all_web_hooks
+    repo_list.each do |repo|
+      set_web_hook(repo)
+    end
+  end
+
   def set_web_hook(repo)
     @conn.post do |req|
       req.url "/repos/#{repo}/hooks"
@@ -25,23 +36,11 @@ class GithubService
       req.body = JSON.generate({"name": "web", "active": true, "events": ["issues", "pull_request"],"config": {"url": "#{ENV["GITHUB_WEBHOOK_URL"]}","content_type": "json"}})
     end
   end
+  
 
   def delete_web_hook(repo, id)
     @conn.delete do |req|
       req.url "/repos/#{repo}/hooks/#{id}"
-      req.headers['Authorization'] = "token #{@token}"
-    end
-  end
-
-  def set_hooks_to_repos
-    repo_list.each do |repo|
-      set_web_hook(repo)
-    end
-  end
-
-  def get_hook(repo)
-    @conn.get do |req|
-      req.url "/repos/#{repo}/hooks"
       req.headers['Authorization'] = "token #{@token}"
     end
   end
@@ -52,12 +51,18 @@ class GithubService
     end
   end
 
-
   def hook_list
     @hook_list ||= repo_list.map do |repo|
       resp = get_hook(repo)
       body = JSON.parse(resp.body)
       {repo => body}
     end.reduce({}, :merge)
+  end
+
+  def get_hook(repo)
+    @conn.get do |req|
+      req.url "/repos/#{repo}/hooks"
+      req.headers['Authorization'] = "token #{@token}"
+    end
   end
 end

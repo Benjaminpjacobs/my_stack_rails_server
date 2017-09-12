@@ -1,0 +1,39 @@
+<div class='settings-container'>
+  <div  class='github-repos'>
+  <%if @hooks_presenter.github_hooks_set? %>
+    <%= link_to hooks_github_broadcast_destroy_path  do %>
+      <button class= "btn btn-lg btn-block btn-social btn-github" >
+        <span class="fa fa-github"></span> Delete Github Hooks
+      </button>
+    <%end%>
+    <br>
+    <%= link_to hooks_github_broadcast_update_path do %>
+      <button class= "btn btn-lg btn-block btn-social btn-github" >
+        <span class="fa fa-github"></span> Reset Github Hooks
+      </button>
+    <%end%>
+  <%else%>
+    <%= link_to new_hooks_github_broadcast_path  do %>
+      <button class= "btn btn-lg btn-block btn-social btn-github" >
+        <span class="fa fa-github"></span> Set Github Hooks
+      </button>
+    <%end%>
+  <%end%>
+  </div>
+  
+  <div class='google-links'>
+  <% if @hooks_presenter.google_hooks_set?%>
+    <%= link_to '/'  do %>
+      <button class= "btn btn-lg btn-block btn-social btn-google" >
+        <span class="fa fa-google"></span> Delete Google Hooks
+      </button>
+    <%end%>
+  <%else%>
+  <%= link_to new_hooks_google_broadcast_path  do %>
+    <button class= "btn btn-lg btn-block btn-social btn-google" >
+      <span class="fa fa-google"></span> Set Google Hooks
+    </button>
+  <%end%>
+  <%end%>
+  </div>
+  </div>

@@ -14,6 +14,7 @@ Rails.application.routes.draw do
 
   get '/main', to: 'main#index'
 
+  get '/hooks', to: 'hooks#index'
   namespace :hooks do
     namespace :google do
       post '/reception', to: 'reception#received'
@@ -32,9 +33,9 @@ Rails.application.routes.draw do
     
     namespace :github do
       post '/reception', to: 'reception#received'
-      resources :broadcast, only: [:new, :create]
-      match 'broadcast/edit' => 'broadcast#edit', :via => :get
-      match 'broadcast/destroy' => 'broadcast#delete', :via => :delete
+      resources :broadcast, only: [:new]
+      match 'broadcast/update' => 'broadcast#update', :via => :get
+      match 'broadcast/destroy' => 'broadcast#delete', :via => :get
     end
   end
 
