@@ -7,7 +7,6 @@ class Hooks::Google::ReceptionController < HookBaseController
     user = User.find_by_email(parsed['emailAddress'])
     id = user.identities.where(provider: 'google_oauth2').first
     token = Token.new(id)
-    token.access_token
     client = Signet::OAuth2::Client.new(access_token: token.access_token)
     client.expires_in = Time.now + 1_000_000
     service = Google::Apis::GmailV1::GmailService.new
