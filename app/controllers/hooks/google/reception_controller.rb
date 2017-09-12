@@ -16,15 +16,16 @@ class Hooks::Google::ReceptionController < HookBaseController
     id =messages.messages.first.id
     msg = service.get_user_message('me', id)
 
-    # subject_header =  msg.payload.headers.select{|header| header.name == "Subject"}
-    # subject = subject_header ? subject_header.first.value : "(no subject)"
+    subject_header =  msg.payload.headers.select{|header| header.name == "Subject"}
+    subject = subject_header ? subject_header.first.value : "(no subject)"
 
     from =  msg.payload.headers.select{|header| header.name == "From"}.first.value
     
     snippet = msg.snippet
     
-    data = msg.payload.parts.first.body.data
-    payload = {from: from, snippet: snippet, data: data, subject: nil}
+    parts = msg.payload.parts
+    data = parts ? parts.first.body.data || "(no data)"
+    payload = {from: from, snippet: snippet, data: data, subject: subject}
     
     if msg.label_ids.include?('UNREAD') && msg.label_ids.include?('INBOX')
       Message.store(payload, user, 'message', 'google_oauth2')
