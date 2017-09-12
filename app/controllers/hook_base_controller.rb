@@ -1,4 +1,4 @@
-class HookBaseController < ActionController::Base
+class HookBaseController < ActionController::API
   protect_from_forgery with: :null_session
 
 end
