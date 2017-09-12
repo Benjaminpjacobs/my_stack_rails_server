@@ -1,5 +1,5 @@
 class MessagesSerializer < ActiveModel::Serializer
-  attributes :repo, :from, :link, :event_type, :id, :provider, :message_text, :message_sender, :snippet, :email_address
+  attributes :repo, :from, :link, :event_type, :id, :provider, :message_text, :message_sender, :snippet, :email_address, :subject
 
   def provider
     object.service.name
@@ -35,5 +35,9 @@ class MessagesSerializer < ActiveModel::Serializer
 
   def email_address
     object.message['from'].split('<').first
+  end
+
+  def subject
+    object.message['subject']
   end
 end
