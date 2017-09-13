@@ -14768,7 +14768,7 @@ document.addEventListener('DOMContentLoaded', () => {
                       <p> Message: {{ message.message_text }} </p>
                       <p>sender: {{ message.message_sender}} </p>
                       <button @click="removeMessage(message.id)">Completed</button>
-                      <a href="https://slack.com/signin"  target='blank'><button>Slack</button></a>
+                      <a href="slack://open" target='blank'><button>Slack</button></a>
                     </div>
                     <img src=${SLACK_IMG}>
                 </div>
