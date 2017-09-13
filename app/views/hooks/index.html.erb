@@ -5,7 +5,7 @@
   </div>
   <div class='settings-container'>
       <div  class='github-repos'>
-      <%if @hooks_presenter.github_hooks_set? %>
+      <%if @hooks_presenter.github &&@hooks_presenter.github_hooks_set? %>
         <%= link_to hooks_github_broadcast_destroy_path  do %>
           <button class= "btn btn-lg btn-block btn-social btn-github" >
             <span class="fa fa-github"></span> Delete Github Hooks
@@ -27,7 +27,7 @@
       </div>
       
       <div class='google-links'>
-      <% if @hooks_presenter.google_hooks_set?%>
+      <% if @hooks_presenter.google && @hooks_presenter.google_hooks_set?%>
         <%= link_to hooks_google_broadcast_destroy_path  do %>
           <button class= "btn btn-lg btn-block btn-social btn-google" >
             <span class="fa fa-google"></span> Delete Google Hooks
@@ -43,7 +43,7 @@
       </div>
 
       <div class='slack-links'>
-          <% if @hooks_presenter.slack_hooks_set?%>
+          <% if @hooks_presenter.slack &&@hooks_presenter.slack_hooks_set?%>
             <%= link_to '/'  do %>
               <button class= "btn btn-lg btn-block btn-social btn-slack" >
                 <span class="fa fa-slack"></span> Delete Slack Hooks
@@ -60,7 +60,7 @@
        
        
       <div class='facebook-links'>
-          <% if @hooks_presenter.facebook_hooks_set?%>
+          <% if @hooks_presenter.facebook && @hooks_present.facebook_hooks_set?%>
             <%= link_to '/'  do %>
               <button class= "btn btn-lg btn-block btn-social btn-facebook" >
                 <span class="fa fa-facebook"></span> Delete Facebook Hooks
