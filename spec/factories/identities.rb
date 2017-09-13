@@ -7,7 +7,7 @@ FactoryGirl.define do
     refresh_token "1234ASDF"
     expires_at Time.now.to_i + 3600
     hooks_set false
-    hooks_expire nil
+    hook_expires nil
     hook_expires_at nil
   end
 end
