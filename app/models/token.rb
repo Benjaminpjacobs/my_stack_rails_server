@@ -1,9 +1,5 @@
 class Token < SimpleDelegator
 
-  # def initialize(identity)
-  #   @id = identity
-  # end
-  
   def to_params
     { 'refresh_token' => refresh_token,
       'client_id'     => ENV['GOOGLE_ID'],
