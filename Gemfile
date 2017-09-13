@@ -53,7 +53,7 @@ group :development, :test do
   gem 'rspec-rails'
   gem 'launchy'
   gem 'shoulda-matchers'
-  gem 'factory_girl_rails', '~> 4.0'
+  gem 'factory_girl_rails'
   gem 'pry-rails'
   gem 'vcr'
   gem 'webmock'

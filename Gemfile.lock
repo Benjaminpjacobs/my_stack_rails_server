@@ -441,7 +441,7 @@ DEPENDENCIES
   coffee-rails (~> 4.2)
   devise
   erb2haml
-  factory_girl_rails (~> 4.0)
+  factory_girl_rails
   faraday
   figaro
   font-awesome-rails

@@ -10,4 +10,8 @@ FactoryGirl.define do
     hook_expires nil
     hook_expires_at nil
   end
+
+  sequence :uid do |n|
+    "#{n * (n+n) * (n + n + n)}"
+  end
 end
