@@ -1,5 +1,5 @@
 class MessagesSerializer < ActiveModel::Serializer
-  attributes :repo, :from, :link, :event_type, :id, :provider, :message_text, :message_sender, :snippet, :email_address, :subject
+  attributes :repo, :from, :link, :event_type, :id, :provider, :message_text, :message_sender, :snippet, :email_address, :subject, :issue_link
 
   def provider
     object.service.name
@@ -23,6 +23,10 @@ class MessagesSerializer < ActiveModel::Serializer
 
   def link
     eval(object.message["pull_request"])["html_url"] if object.message["pull_request"]
+  end
+
+  def issue_link
+    eval(object.message["issue"])["html_url"] if object.message["issue"]
   end
 
   def event_type

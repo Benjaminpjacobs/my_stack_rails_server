@@ -196,11 +196,6 @@ document.addEventListener('DOMContentLoaded', () => {
         reconnect: true
     });
 
-
-    // const socket = io.connect(`http://localhost:8080`, {
-    //     reconnect: true
-    // });
-
     socket.on('connect', () => console.log('connected'));
     socket.on("msg", (ping) => {
         EventHub.$emit('socket-update', ping)
