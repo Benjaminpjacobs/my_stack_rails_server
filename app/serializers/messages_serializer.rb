@@ -23,9 +23,6 @@ class MessagesSerializer < ActiveModel::Serializer
 
   def link
     eval(object.message["pull_request"])["html_url"] if object.message["pull_request"]
-  end
-
-  def issue_link
     eval(object.message["issue"])["html_url"] if object.message["issue"]
   end
 

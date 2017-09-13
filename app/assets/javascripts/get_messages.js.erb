@@ -5,7 +5,9 @@ document.addEventListener('DOMContentLoaded', () => {
     const SLACK_IMG = document.querySelector('#app-messages').dataset.slackimage;
     const GMAIL_IMG = document.querySelector('#app-messages').dataset.gmail;
     const user = document.querySelector('#app-messages').dataset.id;
+
     const EventHub = new Vue({});
+
     const GmailEvent = {
         name: 'GmailEvent',
         props: {
