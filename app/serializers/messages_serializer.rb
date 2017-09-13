@@ -1,5 +1,5 @@
 class MessagesSerializer < ActiveModel::Serializer
-  attributes :repo, :from, :link, :event_type, :id, :provider, :message_text, :message_sender, :snippet, :email_address, :subject, :issue_link
+  attributes :repo, :from, :link, :event_type, :id, :provider, :message_text, :message_sender, :snippet, :email_address, :subject
 
   def provider
     object.service.name
