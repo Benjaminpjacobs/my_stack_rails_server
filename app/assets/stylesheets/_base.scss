@@ -99,8 +99,20 @@ img {
     }
 }
 
+.settings-page {
+    display: flex;
+    width: 100%;
+}
+
 .settings-container {
-    width: 90%;
+    width: 100%;
+    padding-top: 100px;
+}
+
+.nav-buttons {
+    button {
+        width: 150px;
+    }
 }
 
 .github-repos {
@@ -118,7 +130,11 @@ img {
     overflow: scroll;
 }
 
-.google-links {
+.google-links,
+.slack-links,
+.facebook-links,
+.twitter-links,
+{
     border-bottom: 1px solid black;
     width: 90%;
     padding: 20px;

@@ -1,39 +1,94 @@
-<div class='settings-container'>
-  <div  class='github-repos'>
-  <%if @hooks_presenter.github_hooks_set? %>
-    <%= link_to hooks_github_broadcast_destroy_path  do %>
-      <button class= "btn btn-lg btn-block btn-social btn-github" >
-        <span class="fa fa-github"></span> Delete Github Hooks
-      </button>
-    <%end%>
-    <br>
-    <%= link_to hooks_github_broadcast_update_path do %>
-      <button class= "btn btn-lg btn-block btn-social btn-github" >
-        <span class="fa fa-github"></span> Reset Github Hooks
-      </button>
-    <%end%>
-  <%else%>
-    <%= link_to new_hooks_github_broadcast_path  do %>
-      <button class= "btn btn-lg btn-block btn-social btn-github" >
-        <span class="fa fa-github"></span> Set Github Hooks
-      </button>
-    <%end%>
-  <%end%>
+<div class='settings-page'>
+  <div class='header'>
+    <%= render partial: 'shared/header' %>
+    <%= render partial: 'shared/nav_buttons' %>
   </div>
-  
-  <div class='google-links'>
-  <% if @hooks_presenter.google_hooks_set?%>
-    <%= link_to hooks_google_broadcast_destroy_path  do %>
-      <button class= "btn btn-lg btn-block btn-social btn-google" >
-        <span class="fa fa-google"></span> Delete Google Hooks
-      </button>
-    <%end%>
-  <%else%>
-  <%= link_to new_hooks_google_broadcast_path  do %>
-    <button class= "btn btn-lg btn-block btn-social btn-google" >
-      <span class="fa fa-google"></span> Set Google Hooks
-    </button>
-  <%end%>
-  <%end%>
-  </div>
+  <div class='settings-container'>
+      <div  class='github-repos'>
+      <%if @hooks_presenter.github_hooks_set? %>
+        <%= link_to hooks_github_broadcast_destroy_path  do %>
+          <button class= "btn btn-lg btn-block btn-social btn-github" >
+            <span class="fa fa-github"></span> Delete Github Hooks
+          </button>
+        <%end%>
+        <br>
+        <%= link_to hooks_github_broadcast_update_path do %>
+          <button class= "btn btn-lg btn-block btn-social btn-github" >
+            <span class="fa fa-github"></span> Update Github Hooks
+          </button>
+        <%end%>
+      <%else%>
+        <%= link_to new_hooks_github_broadcast_path  do %>
+          <button class= "btn btn-lg btn-block btn-social btn-github" >
+            <span class="fa fa-github"></span> Set Github Hooks
+          </button>
+        <%end%>
+      <%end%>
+      </div>
+      
+      <div class='google-links'>
+      <% if @hooks_presenter.google_hooks_set?%>
+        <%= link_to hooks_google_broadcast_destroy_path  do %>
+          <button class= "btn btn-lg btn-block btn-social btn-google" >
+            <span class="fa fa-google"></span> Delete Google Hooks
+          </button>
+        <%end%>
+      <%else%>
+      <%= link_to new_hooks_google_broadcast_path  do %>
+        <button class= "btn btn-lg btn-block btn-social btn-google" >
+          <span class="fa fa-google"></span> Set Google Hooks
+        </button>
+      <%end%>
+      <%end%>
+      </div>
+
+      <div class='slack-links'>
+          <% if @hooks_presenter.slack_hooks_set?%>
+            <%= link_to '/'  do %>
+              <button class= "btn btn-lg btn-block btn-social btn-slack" >
+                <span class="fa fa-slack"></span> Delete Slack Hooks
+              </button>
+            <%end%>
+          <%else%>
+          <%= link_to new_hooks_slack_broadcast_path  do %>
+            <button class= "btn btn-lg btn-block btn-social btn-slack" >
+              <span class="fa fa-slack"></span> Set Slack Hooks
+            </button>
+          <%end%>
+        <%end%>
+      </div>
+       
+       
+      <div class='facebook-links'>
+          <% if @hooks_presenter.facebook_hooks_set?%>
+            <%= link_to '/'  do %>
+              <button class= "btn btn-lg btn-block btn-social btn-facebook" >
+                <span class="fa fa-facebook"></span> Delete Facebook Hooks
+              </button>
+            <%end%>
+          <%else%>
+          <%= link_to '/'  do %>
+            <button class= "btn btn-lg btn-block btn-social btn-facebook" >
+              <span class="fa fa-facebook"></span> Set Facebook Hooks
+            </button>
+          <%end%>
+        <%end%>
+      </div>
+
+      <div class='twitter-links'>
+          <% if @hooks_presenter.twitter && @hooks_presenter.hooks_set?%>
+            <%= link_to '/'  do %>
+              <button class= "btn btn-lg btn-block btn-social btn-twitter" >
+                <span class="fa fa-twitter"></span> Delete Twitter Hooks
+              </button>
+            <%end%>
+          <%else%>
+          <%= link_to '/'  do %>
+            <button class= "btn btn-lg btn-block btn-social btn-twitter" >
+              <span class="fa fa-twitter"></span> Set Twitter Hooks
+            </button>
+          <%end%>
+        <%end%>
+      </div>
+    </div>
   </div>

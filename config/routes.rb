@@ -24,6 +24,7 @@ Rails.application.routes.draw do
 
     namespace :slack do
       post '/reception', to: 'reception#received'
+      match 'broadcast/destroy' => 'broadcast#delete', :via => :get
     end
     
     namespace :facebook do

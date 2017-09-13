@@ -1,9 +1,6 @@
 <div class='header'>
-  <%= image_tag 'myStackLogo.png', class:'logo' %>
-  <div class='actions'>
-  <%= button_to "Sign Out", signout_path, method: :delete, id:'sign-out', class:"btn btn-lg btn-block user-btn" %>
-  <%= button_to "Settings", root_path, method: :get, class:"btn btn-lg btn-block user-btn" %>
-  </div>
+  <%= render partial: 'shared/header' %>
+  <%= render partial: 'shared/nav_buttons' %>
 </div>
 
 <div id='app-messages' data-id=<%=current_user.id%> data-url=<%=@msg_url%> data-socket=<%=@socket_url%> data-ghimage=<%=asset_url('octoCat.png')%> data-slackimage=<%=asset_url('slack_icon.png')%> data-gmail=<%=asset_url('inboxLogo.png')%>></div>
