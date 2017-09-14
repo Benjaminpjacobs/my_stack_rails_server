@@ -6,7 +6,7 @@ class Hooks::Slack::ReceptionController < HookBaseController
     id = Identity.find_by_uid(payload['authed_users'].first) if payload['authed_users']
     token = id.token if id
     user = id.user if id
-
+    
     if token
       service = SlackService.new(token)
       user_info = service.get_user_name(from_user_id)
