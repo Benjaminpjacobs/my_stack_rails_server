@@ -28,7 +28,4 @@ class Hooks::Slack::ReceptionController < HookBaseController
     Message.where("message @> 'token=>#{msg_token}'").empty?
   end
 
-  def get_sender
-
-  end
 end
