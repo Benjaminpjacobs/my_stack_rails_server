@@ -1,15 +1,12 @@
 class Hooks::Google::ReceptionController < HookBaseController
+  include GoogleHelper
   include SocketHelper
 
   def received
-    google_service  = GoogleService.new({request: request})
-    user            = google_service.push_notification_email
-    id              = google_service.push_notification_id
-    provider        = Service.find_by_name(id.provider) if id
-    msg             = google_service.get_user_messages if id
+    message = objectify(request)
     
-    if valid_message?(msg)
-      ping_socket(user.id, provider.id) if format_and_save_message(msg,user,provider)
+    if valid_message?(message.msg) && format_and_save_message(message.msg, message.user, message.provider)
+      ping_socket(message.user.id, message.provider.id)
     end
     
     render json: {"msg": "ok"}, status: 200;
