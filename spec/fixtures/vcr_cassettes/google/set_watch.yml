@@ -1,0 +1,67 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: https://www.googleapis.com/gmail/v1/users/me/watch
+    body:
+      encoding: UTF-8
+      string: '{"topicName":"projects/rich-tine-178917/topics/myStack"}'
+    headers:
+      User-Agent:
+      - |-
+        unknown/0.0.0 google-api-ruby-client/0.13.5 Mac OS X/10.10.5
+         (gzip)
+      Accept:
+      - "*/*"
+      Accept-Encoding:
+      - gzip,deflate
+      Date:
+      - Fri, 15 Sep 2017 13:13:59 GMT
+      Content-Type:
+      - application/json
+      Authorization:
+      - Bearer ya29.GlvHBHv3jWyA_SQun6bhDK9qR_LRQAy6qGrpaOa5VKV_uKh2pnNg-Cwx8PRHlDOJm9gBVhwjRE41ODMLUnegX6VjDOjrpbJywVZ1fILcnMPDmzd1Df_XyZcYLnOP
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Cache-Control:
+      - no-cache, no-store, max-age=0, must-revalidate
+      Pragma:
+      - no-cache
+      Expires:
+      - Mon, 01 Jan 1990 00:00:00 GMT
+      Date:
+      - Fri, 15 Sep 2017 13:13:59 GMT
+      Etag:
+      - '"vTv5cW6FoCsDksUGuhOti4CR5EE/kXahOA5LBcwWJMmwgrHqn0xmepo"'
+      Vary:
+      - Origin
+      - X-Origin
+      Content-Type:
+      - application/json; charset=UTF-8
+      Content-Encoding:
+      - gzip
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - SAMEORIGIN
+      X-Xss-Protection:
+      - 1; mode=block
+      Server:
+      - GSE
+      Alt-Svc:
+      - quic=":443"; ma=2592000; v="39,38,37,35"
+      Transfer-Encoding:
+      - chunked
+    body:
+      encoding: UTF-8
+      string: |
+        {
+         "historyId": "10196433",
+         "expiration": "1506086039111"
+        }
+    http_version: 
+  recorded_at: Fri, 15 Sep 2017 13:13:59 GMT
+recorded_with: VCR 3.0.3
