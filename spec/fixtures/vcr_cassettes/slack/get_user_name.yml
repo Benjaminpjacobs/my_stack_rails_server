@@ -1,0 +1,69 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://slack.com/api/users.info?token=xoxp-238073677557-237995143092-239213505510-fb159a92ed980981c8ca88673ebe47bb&user=U6ZV9472Q
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - Faraday v0.12.2
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Type:
+      - application/json; charset=utf-8
+      Content-Length:
+      - '524'
+      Connection:
+      - keep-alive
+      Access-Control-Allow-Origin:
+      - "*"
+      Cache-Control:
+      - private, no-cache, no-store, must-revalidate
+      Date:
+      - Fri, 15 Sep 2017 13:31:01 GMT
+      Expires:
+      - Mon, 26 Jul 1997 05:00:00 GMT
+      Pragma:
+      - no-cache
+      Referrer-Policy:
+      - no-referrer
+      Server:
+      - Apache
+      Strict-Transport-Security:
+      - max-age=31536000; includeSubDomains; preload
+      Vary:
+      - Accept-Encoding
+      X-Accepted-Oauth-Scopes:
+      - users:read
+      X-Content-Type-Options:
+      - nosniff
+      X-Oauth-Scopes:
+      - identify,users:read,users:read.email,users.profile:read
+      X-Slack-Backend:
+      - h
+      X-Slack-Req-Id:
+      - e3b20b72-e512-445b-82a4-eabc68da709a
+      X-Xss-Protection:
+      - '0'
+      X-Cache:
+      - Miss from cloudfront
+      Via:
+      - 1.1 26323e33c40f7d3c5faf3b27606bb0b1.cloudfront.net (CloudFront)
+      X-Amz-Cf-Id:
+      - Tnontg4WmuJfavobjSYORG04843pqPUAVVCqJvB8Ck52lY63DGYT6A==
+    body:
+      encoding: ASCII-8BIT
+      string: '{"ok":true,"user":{"id":"U6ZV9472Q","team_id":"T7025KXGD","name":"c","deleted":false,"color":"4bbe2e","real_name":"Chris","tz":"America\/Denver","tz_label":"Mountain
+        Daylight Time","tz_offset":-21600,"profile":{"first_name":"Chris","last_name":"","real_name":"Chris","display_name":"c","avatar_hash":"gb5b8d88b7d4","title":"","real_name_normalized":"Chris","display_name_normalized":"c","email":"me@chrisryansmith.com","image_24":"https:\/\/secure.gravatar.com\/avatar\/b5b8d88b7d46b22f61c90c73a7703d5d.jpg?s=24&d=https%3A%2F%2Fcfr.slack-edge.com%2F66f9%2Fimg%2Favatars%2Fava_0019-24.png","image_32":"https:\/\/secure.gravatar.com\/avatar\/b5b8d88b7d46b22f61c90c73a7703d5d.jpg?s=32&d=https%3A%2F%2Fcfr.slack-edge.com%2F66f9%2Fimg%2Favatars%2Fava_0019-32.png","image_48":"https:\/\/secure.gravatar.com\/avatar\/b5b8d88b7d46b22f61c90c73a7703d5d.jpg?s=48&d=https%3A%2F%2Fcfr.slack-edge.com%2F66f9%2Fimg%2Favatars%2Fava_0019-48.png","image_72":"https:\/\/secure.gravatar.com\/avatar\/b5b8d88b7d46b22f61c90c73a7703d5d.jpg?s=72&d=https%3A%2F%2Fcfr.slack-edge.com%2F66f9%2Fimg%2Favatars%2Fava_0019-72.png","image_192":"https:\/\/secure.gravatar.com\/avatar\/b5b8d88b7d46b22f61c90c73a7703d5d.jpg?s=192&d=https%3A%2F%2Fcfr.slack-edge.com%2F7fa9%2Fimg%2Favatars%2Fava_0019-192.png","image_512":"https:\/\/secure.gravatar.com\/avatar\/b5b8d88b7d46b22f61c90c73a7703d5d.jpg?s=512&d=https%3A%2F%2Fcfr.slack-edge.com%2F7fa9%2Fimg%2Favatars%2Fava_0019-512.png","team":"T7025KXGD"},"is_admin":false,"is_owner":false,"is_primary_owner":false,"is_restricted":false,"is_ultra_restricted":false,"is_bot":false,"updated":1504825510,"is_app_user":false,"has_2fa":false}}'
+    http_version: 
+  recorded_at: Fri, 15 Sep 2017 13:31:01 GMT
+recorded_with: VCR 3.0.3

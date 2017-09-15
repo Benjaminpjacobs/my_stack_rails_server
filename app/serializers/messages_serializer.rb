@@ -1,29 +1,36 @@
 class MessagesSerializer < ActiveModel::Serializer
-  attributes :repo, :from, :link, :event_type, :id, :provider, :message_text, :message_sender, :snippet, :email_address, :subject
+  attributes :repo, :from, :link, :event_type, :id, :provider, :message_text, :message_sender, :snippet, :email_address, :subject, :title, :body
 
   def provider
     object.service.name
   end
   
   def message_sender
-    eval(object.message['event'])['user'] if object.message['event']
+    object.message['user']
   end
 
   def message_text
-    eval(object.message['event'])['text'] if object.message['event']
+    object.message['text']
   end
 
   def repo
-    eval(object.message["repository"])["name"] if object.message["repository"]
+    object.message['repo']
+  end
+  
+  def title
+    object.message['title']
+  end
+
+  def body
+    object.message['body']
   end
 
   def from
-    eval(object.message["sender"])["login"] if object.message["sender"]
+    object.message["sender"]
   end
 
   def link
-    eval(object.message["pull_request"])["html_url"] if object.message["pull_request"]
-    eval(object.message["issue"])["html_url"] if object.message["issue"]
+    object.message["url"]
   end
 
   def event_type

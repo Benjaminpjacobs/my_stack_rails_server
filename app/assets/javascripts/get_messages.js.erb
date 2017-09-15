@@ -184,6 +184,8 @@ document.addEventListener('DOMContentLoaded', () => {
             this.fetchData({ user_id: user_id, service_id: [] });
         },
         template: `
+        <div>
+        <button class='btn btn-lg btn-block clear-btn'> Clear Stack </button>
         <ul class='messages'>
           <li v-for="message in messages"  :key="message.id">
               <GitHubEvent v-if="message.provider === 'github'" :message="message" :markAsComplete="markAsComplete" />
@@ -191,6 +193,7 @@ document.addEventListener('DOMContentLoaded', () => {
               <SlackEvent v-if="message.provider === 'slack'" :message="message" :markAsComplete="markAsComplete" />
           </li>
         </ul>
+        </div
       `,
     })
 

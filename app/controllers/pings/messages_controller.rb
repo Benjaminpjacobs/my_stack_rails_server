@@ -8,4 +8,10 @@ class Pings::MessagesController < ActionController::Base
     msg = Message.find(params[:msg_id])
     msg.update_attributes(status: 2)
   end
+
+  def clear_stack
+    current_user.messages.update_all(status: 2)
+    service = WebsocketService.new
+    service.post_message({user_id: current_user.id, service_id: nil})
+  end
 end

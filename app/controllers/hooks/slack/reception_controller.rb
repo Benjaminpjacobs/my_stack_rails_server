@@ -1,33 +1,38 @@
 class Hooks::Slack::ReceptionController < HookBaseController
+  include SlackHelper
+  include SocketHelper
+
   def received
     payload    = JSON.parse(request.body.read)
-    msg_token = payload['token']
-    from_user_id = payload['event']['user'] if payload['event']
-    id = Identity.find_by_uid(payload['authed_users'].first) if payload['authed_users']
-    token = id.token if id
-    user = id.user if id
-    
-    if token
-      service = SlackService.new(token)
-      user_info = service.get_user_name(from_user_id)
-      payload['event']['user'] = user_info['user']['name'] if user_info['user']
-    end
-    
-    if user
-      Message.store(payload, user, 'message', 'slack')
-      service = WebsocketService.new
-      service.post_message({user_id: user.id, service_id: 2})
-    else
-      render json: payload['challenge'] || "ok" , status: 200
+    return render json: payload['challenge'] if payload['challenge']
+    message    = objectify(payload)
+
+    if valid_message?(message) && format_and_save(message, payload)
+      ping_socket(message.user.id, message.provider.id)
     end
 
-  end
-
-  def new_message?(msg_token)
-    Message.where("message @> 'token=>#{msg_token}'").empty?
-  end
-
-  def get_sender
+    render json: "ok" , status: 200
 
   end
+
+  private
+
+    def format_and_save(message, payload)
+      data = add_user_to_payload(message.token, message.from_user_id, payload)
+      Message.create(
+                     message: data, 
+                     event_type: 'message', 
+                     user_id: message.user.id, 
+                     service_id: message.provider.id
+                     )
+    end
+  
+    def new_message?(event_id)
+      Message.where("message @> 'event_id=>#{event_id}'").empty?
+    end
+
+    def valid_message?(message)
+      message.user && message.token && new_message?(message.event_id)
+    end
+
 end

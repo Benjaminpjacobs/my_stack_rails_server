@@ -1,38 +1,33 @@
 class Hooks::Google::ReceptionController < HookBaseController
+  include GoogleHelper
+  include SocketHelper
+
   def received
-    message = JSON.parse(request.body.read)
-    decoded = Base64.decode64(message['message']['data'])
-    parsed = JSON.parse(decoded)
-
-    user = User.find_by_email(parsed['emailAddress'])
-    id = user.identities.where(provider: 'google_oauth2').first
-    token = Token.new(id)
-    client = Signet::OAuth2::Client.new(access_token: token.access_token)
-    client.expires_in = Time.now + 1_000_000
-    service = Google::Apis::GmailV1::GmailService.new
-    service.authorization = client
+    message = objectify(request)
     
-    messages = service.list_user_messages('me')
-    id =messages.messages.first.id
-    msg = service.get_user_message('me', id)
-    
-    if msg.label_ids.include?('UNREAD') && msg.label_ids.include?('INBOX')
-
-      subject_header =  msg.payload.headers.select{|header| header.name == "Subject"}
-      subject = subject_header ? subject_header.first.value : "(no subject)"
-
-      from =  msg.payload.headers.select{|header| header.name == "From"}.first.value
-      
-      snippet = msg.snippet
-      
-      parts = msg.payload.parts
-      data = parts ? parts.first.body.data : "(no data)"
-      payload = {from: from, snippet: snippet, data: data, subject: subject}
-      
-      Message.store(payload, user, 'message', 'google_oauth2')
-      service = WebsocketService.new
-      service.post_message({user_id: user.id, service_id: 3})
+    if valid_message?(message.msg) && format_and_save_message(message.msg, message.user, message.provider)
+      ping_socket(message.user.id, message.provider.id)
     end
+    
+    render json: {"msg": "ok"}, status: 200;
   end
+  
+  private
+  
+    def valid_message?(msg)
+      msg && 
+      msg.label_ids.include?('UNREAD') && 
+      msg.label_ids.include?('INBOX') && 
+      !msg.label_ids.include?('CATEGORY_PROMOTIONS') && 
+      new_message?(msg.id)
+    end
+  
+    def format_and_save_message(msg,user,provider)
+      message = Message.google_format(msg, 'message', user, provider )
+      Message.create(message)
+    end
 
+    def new_message?(id)
+      Message.where("message @> 'google_id=>#{id}'").empty?
+    end
 end

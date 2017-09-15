@@ -1,0 +1,51 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: https://www.googleapis.com/gmail/v1/users/me/stop
+    body:
+      encoding: UTF-8
+      string: ''
+    headers:
+      User-Agent:
+      - |-
+        unknown/0.0.0 google-api-ruby-client/0.13.5 Mac OS X/10.10.5
+         (gzip)
+      Accept:
+      - "*/*"
+      Accept-Encoding:
+      - gzip,deflate
+      Date:
+      - Fri, 15 Sep 2017 13:20:15 GMT
+      Content-Type:
+      - application/x-www-form-urlencoded; charset=UTF-8
+      Authorization:
+      - Bearer ya29.GlvHBHv3jWyA_SQun6bhDK9qR_LRQAy6qGrpaOa5VKV_uKh2pnNg-Cwx8PRHlDOJm9gBVhwjRE41ODMLUnegX6VjDOjrpbJywVZ1fILcnMPDmzd1Df_XyZcYLnOP
+  response:
+    status:
+      code: 204
+      message: No Content
+    headers:
+      Cache-Control:
+      - no-cache, no-store, max-age=0, must-revalidate
+      Pragma:
+      - no-cache
+      Expires:
+      - Mon, 01 Jan 1990 00:00:00 GMT
+      Date:
+      - Fri, 15 Sep 2017 13:20:15 GMT
+      Etag:
+      - '"vTv5cW6FoCsDksUGuhOti4CR5EE/vyGp6PvFo4RvsFtPoIWeCReyIC8"'
+      Vary:
+      - Origin
+      - X-Origin
+      Server:
+      - GSE
+      Alt-Svc:
+      - quic=":443"; ma=2592000; v="39,38,37,35"
+    body:
+      encoding: UTF-8
+      string: ''
+    http_version: 
+  recorded_at: Fri, 15 Sep 2017 13:20:15 GMT
+recorded_with: VCR 3.0.3
