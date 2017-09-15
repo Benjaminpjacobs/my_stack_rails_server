@@ -56,8 +56,16 @@ class GoogleService
     service                   = gmail_service
     watch_request             = Google::Apis::GmailV1::WatchRequest.new
     watch_request.topic_name  = 'projects/rich-tine-178917/topics/myStack'
-    response                  = service.watch_user('me', watch_request)
+
+    service.watch_user('me', watch_request)
     id.update_attributes(hooks_set: true, hook_expires: true, hook_expires_at: 7.days.from_now)
+  end
+
+  def cancel_service
+    service = gmail_service
+
+    service.stop_user('me')
+    id.update_attributes(hooks_set: false, hook_expires: nil, hook_expires_at: nil)
   end
 end
         

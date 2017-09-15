@@ -6,7 +6,7 @@ class Hooks::Google::ReceptionController < HookBaseController
     provider        = Service.find_by_name(id.provider) if id
     msg             = google_service.get_user_messages if id
     
-    if msg && msg.label_ids.include?('UNREAD') && msg.label_ids.include?('INBOX') && new_message?(id)
+    if msg && msg.label_ids.include?('UNREAD') && msg.label_ids.include?('INBOX') && new_message?(msg.id)
       notify_client(user, provider) if format_and_save_message(msg,user,provider)
     end
   end
