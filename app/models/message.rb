@@ -26,8 +26,8 @@ class Message < ApplicationRecord
 
   def self.google_format(message, type, user, service)
     subject_header = message.payload.headers.select{|header| header.name == "Subject"}
-    subject = subject_header ? subject_header.first.value : "(no subject)"
-    from =  message.payload.headers.select{|header| header.name == "From"}.first.value
+    subject = subject_header.empty? ? "(no subject)" : subject_header.first.value 
+    from =  message.payload.headers.select{|header| header.name == "From" || header.name == "FROM"}.first.value
     parts = message.payload.parts
     {
       event_type: type,
