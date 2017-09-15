@@ -5,7 +5,9 @@ document.addEventListener('DOMContentLoaded', () => {
     const SLACK_IMG = document.querySelector('#app-messages').dataset.slackimage;
     const GMAIL_IMG = document.querySelector('#app-messages').dataset.gmail;
     const user = document.querySelector('#app-messages').dataset.id;
+
     const EventHub = new Vue({});
+
     const GmailEvent = {
         name: 'GmailEvent',
         props: {
@@ -182,6 +184,8 @@ document.addEventListener('DOMContentLoaded', () => {
             this.fetchData({ user_id: user_id, service_id: [] });
         },
         template: `
+        <div>
+        <button class='btn btn-lg btn-block clear-btn'> Clear Stack </button>
         <ul class='messages'>
           <li v-for="message in messages"  :key="message.id">
               <GitHubEvent v-if="message.provider === 'github'" :message="message" :markAsComplete="markAsComplete" />
@@ -189,17 +193,13 @@ document.addEventListener('DOMContentLoaded', () => {
               <SlackEvent v-if="message.provider === 'slack'" :message="message" :markAsComplete="markAsComplete" />
           </li>
         </ul>
+        </div
       `,
     })
 
     const socket = io.connect(`https://my-stack-websocket.herokuapp.com`, {
         reconnect: true
     });
-
-
-    // const socket = io.connect(`http://localhost:8080`, {
-    //     reconnect: true
-    // });
 
     socket.on('connect', () => console.log('connected'));
     socket.on("msg", (ping) => {
