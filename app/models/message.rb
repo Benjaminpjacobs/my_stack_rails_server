@@ -42,4 +42,14 @@ class Message < ApplicationRecord
       }
     }
   end
+
+  def self.slack_format(data, message)
+    {
+      message: data, 
+      event_type: 'message', 
+      user_id: message.user.id, 
+      service_id: message.provider.id
+    }
+    
+  end
 end

@@ -1,6 +1,7 @@
 class Hooks::Google::BroadcastController < ApplicationController
   before_action :set_identity
   before_action :set_google_service
+  
     def new
       @google_service.update_service
       redirect_to request.referer

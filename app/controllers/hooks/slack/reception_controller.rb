@@ -17,14 +17,10 @@ class Hooks::Slack::ReceptionController < HookBaseController
 
   private
 
-    def format_and_save(message, payload)
-      data = add_user_to_payload(message.token, message.from_user_id, payload)
-      Message.create(
-                     message: data, 
-                     event_type: 'message', 
-                     user_id: message.user.id, 
-                     service_id: message.provider.id
-                     )
+    def format_and_save(msg, payload)
+      data = add_user_to_payload(msg.token, msg.from_user_id, payload)
+      message = Message.slack_format(data, msg)
+      Message.create(message)
     end
   
     def new_message?(event_id)
