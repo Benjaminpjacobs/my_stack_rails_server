@@ -5,7 +5,7 @@
   </div>
   <div class='settings-container'>
       <div  class='github-repos'>
-      <%if @hooks_presenter.github &&@hooks_presenter.github_hooks_set? %>
+      <%if @hooks_presenter.github && @hooks_presenter.github_hooks_set? %>
         <%= link_to hooks_github_broadcast_destroy_path  do %>
           <button class= "btn btn-lg btn-block btn-social btn-github" tabindex='-1'>
             <span class="fa fa-github"></span> Delete Github Hooks
@@ -17,10 +17,16 @@
             <span class="fa fa-github"></span> Update Github Hooks
           </button>
         <%end%>
-      <%else%>
+      <%elsif @hooks_presenter.github%>
         <%= link_to new_hooks_github_broadcast_path  do %>
           <button class= "btn btn-lg btn-block btn-social btn-github" tabindex='-1'>
             <span class="fa fa-github"></span> Set Github Hooks
+          </button>
+        <%end%>
+        <%else%>
+        <%= link_to user_github_omniauth_authorize_path do %>
+          <button class= "btn btn-lg btn-block btn-social btn-github" tabindex='-1'>
+            <span class="fa fa-github"></span> Authorize Github
           </button>
         <%end%>
       <%end%>
@@ -33,28 +39,34 @@
             <span class="fa fa-google"></span> Delete Google Hooks
           </button>
         <%end%>
-      <%else%>
-      <%= link_to new_hooks_google_broadcast_path  do %>
-        <button class= "btn btn-lg btn-block btn-social btn-google" tabindex='-1'>
-          <span class="fa fa-google"></span> Set Google Hooks
-        </button>
-      <%end%>
+      <%elsif @hooks_presenter.google%>
+        <%= link_to new_hooks_google_broadcast_path  do %>
+          <button class= "btn btn-lg btn-block btn-social btn-google" tabindex='-1'>
+            <span class="fa fa-google"></span> Set Google Hooks
+          </button>
+        <%end%>
+       <%else%> 
+        <%= link_to user_google_oauth2_omniauth_authorize_path  do %>
+          <button class= "btn btn-lg btn-block btn-social btn-google" tabindex='-1'>
+            <span class="fa fa-google"></span> Authorize Google
+          </button>
+        <%end%>
       <%end%>
       </div>
 
       <div class='slack-links'>
-          <% if @hooks_presenter.slack &&@hooks_presenter.slack_hooks_set?%>
-            <%= link_to '/'  do %>
+          <% if @hooks_presenter.slack%>
+            <%= link_to hooks_slack_broadcast_destroy_path  do %>
               <button class= "btn btn-lg btn-block btn-social btn-slack" tabindex='-1'>
                 <span class="fa fa-slack"></span> Delete Slack Hooks
               </button>
             <%end%>
           <%else%>
-          <%= link_to user_slack_omniauth_authorize_path  do %>
+            <%= link_to user_slack_omniauth_authorize_path  do %>
             <button class= "btn btn-lg btn-block btn-social btn-slack" tabindex='-1'>
-              <span class="fa fa-slack"></span> Set Slack Hooks
+              <span class="fa fa-slack"></span> Authorize Slack
             </button>
-          <%end%>
+            <%end%>
         <%end%>
       </div>
        
@@ -66,10 +78,16 @@
                 <span class="fa fa-facebook"></span> Delete Facebook Hooks
               </button>
             <%end%>
-          <%else%>
+          <%elsif @hooks_presenter.facebook %>
           <%= link_to '/'  do %>
             <button class= "btn btn-lg btn-block btn-social btn-facebook" tabindex='-1'>
               <span class="fa fa-facebook"></span> Set Facebook Hooks
+            </button>
+          <%end%>
+          <%else%>
+          <%= link_to '/'  do %>
+            <button class= "btn btn-lg btn-block btn-social btn-facebook" tabindex='-1'>
+              <span class="fa fa-facebook"></span> Authorize Facebook
             </button>
           <%end%>
         <%end%>
@@ -82,10 +100,16 @@
                 <span class="fa fa-twitter"></span> Delete Twitter Hooks
               </button>
             <%end%>
-          <%else%>
+          <%elsif%>
           <%= link_to '/'  do %>
             <button class= "btn btn-lg btn-block btn-social btn-twitter" tabindex='-1'>
               <span class="fa fa-twitter"></span> Set Twitter Hooks
+            </button>
+          <%end%>
+          <%else%>
+          <%= link_to '/'  do %>
+            <button class= "btn btn-lg btn-block btn-social btn-twitter" tabindex='-1'>
+              <span class="fa fa-twitter"></span> Authorize Twitter
             </button>
           <%end%>
         <%end%>

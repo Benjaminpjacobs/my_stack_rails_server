@@ -69,8 +69,8 @@ RSpec.describe "Login" do
       
       visit root_path
       click_link 'Sign in with Google'
-      save_and_open_page
       expect(current_path).to eq(root_path)
+      expect(page).to have_content("Invalid Login Credntials")
     end
   end
 end
