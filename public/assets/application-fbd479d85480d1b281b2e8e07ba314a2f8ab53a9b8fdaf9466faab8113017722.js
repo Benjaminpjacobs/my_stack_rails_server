@@ -14838,6 +14838,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 <h3>{{ message.event_type }}</h3> 
                 <p> Repo: {{ message.repo }} </p>
                 <p> Sender:{{ message.from }}</p> 
+                <p> Title:{{ message.title }}</p> 
+                <p v-if="message.action"> Action: {{message.action}} <p>
                 <button @click="removeMessage(message.id)">Completed</button>
                 <a :href="message.link" target='blank' title='open github'><button tabindex='-1'>Github</button></a>
               </div>
