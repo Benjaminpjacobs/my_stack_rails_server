@@ -53,11 +53,36 @@ img {
     }
     button {
         margin: 10px 0;
+        box-shadow: 5px 5px 2px #888888;
+    }
+    button:hover {
+        position: relative;
+        bottom: 2px;
+        right: 2px;
+        box-shadow: 10px 10px 5px #888888;
     }
 }
 
 .messages {
     margin-top: 20px;
+}
+
+.clear-btn {
+    margin: 10px 5px;
+    border-style: none;
+    background-color: #FEBB55;
+    color: white;
+    font-size: 1em;
+    font-weight: 800;
+    letter-spacing: 0.1ch;
+    border-radius: 5px;
+    box-shadow: 5px 5px 2px #888888;
+    text-shadow: 1px 1px #868478;
+}
+
+.clear-btn:hover {
+    color: white;
+    background-color: #CF9442
 }
 
 .message {
@@ -68,9 +93,10 @@ img {
     color: #F5F5F5;
     width: 100%;
     display: flex;
-    justify-content: space-around;
+    justify-content: space-between;
     align-content: center;
     align-items: center;
+    text-shadow: 2px 2px #888888;
     box-shadow: 10px 10px 5px #888888;
     .message-contents {
         max-width: 600px;
@@ -89,13 +115,23 @@ img {
         margin: 10px 5px;
         border-style: none;
         height: 30px;
-        width: 100px;
+        width: 150px;
         background-color: #FEBB55;
         color: white;
-        font-size: .80em;
+        font-size: 1em;
         font-weight: 800;
         letter-spacing: 0.1ch;
         border-radius: 5px;
+        text-shadow: 1px 1px #888888;
+        box-shadow: 5px 5px 2px #888888;
+    }
+    button:hover {
+        color: white;
+        background-color: #CF9442;
+        position: relative;
+        bottom: 2px;
+        right: 2px;
+        box-shadow: 10px 10px 5px #888888;
     }
 }
 
@@ -110,26 +146,23 @@ img {
 }
 
 .nav-buttons {
-    button {
+    input {
         width: 150px;
+        font-weight: 800;
+        font-size: 20px;
+        text-shadow: 1px 1px #888888;
+        box-shadow: 5px 5px 2px #888888;
+    }
+    input:hover {
+        color: white;
+        position: relative;
+        bottom: 2px;
+        right: 2px;
+        box-shadow: 10px 10px 5px #888888;
     }
 }
 
-.github-repos {
-    border-bottom: 1px solid black;
-    width: 90%;
-    padding: 20px;
-    margin: 10px;
-}
-
-.repo-list {
-    border: 1px solid black;
-    padding: 10px;
-    margin: 10px;
-    height: 300px;
-    overflow: scroll;
-}
-
+.github-links,
 .google-links,
 .slack-links,
 .facebook-links,
@@ -139,4 +172,16 @@ img {
     width: 90%;
     padding: 20px;
     margin: 10px;
+    button {
+        box-shadow: 5px 5px 2px #888888;
+    }
+    button:hover {
+        position: relative;
+        bottom: 2px;
+        right: 2px;
+        box-shadow: 10px 10px 5px #888888;
+    }
+    a:hover {
+        text-decoration: none
+    }
 }

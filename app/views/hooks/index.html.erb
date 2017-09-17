@@ -4,7 +4,7 @@
     <%= render partial: 'shared/nav_buttons' %>
   </div>
   <div class='settings-container'>
-      <div  class='github-repos'>
+      <div  class='github-links'>
       <%if @hooks_presenter.github && @hooks_presenter.github_hooks_set? %>
         <%= link_to hooks_github_broadcast_destroy_path  do %>
           <button class= "btn btn-lg btn-block btn-social btn-github" tabindex='-1'>

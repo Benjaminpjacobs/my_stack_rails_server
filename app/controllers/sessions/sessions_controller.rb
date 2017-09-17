@@ -3,7 +3,7 @@ class Sessions::SessionsController < Devise::SessionsController
 
   # GET /resource/sign_in
   def new
-    flash[:alert] = 'Invalid Login Credntials'
+    flash[:notice] = 'Invalid Login Credntials'
     redirect_to root_path
   end
 
