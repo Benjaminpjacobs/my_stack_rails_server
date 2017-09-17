@@ -23,7 +23,12 @@ document.addEventListener('DOMContentLoaded', () => {
         data() {
             return {
                 show: false,
+                clearAll: false,
             }
+        },
+        computed: {
+            clearStack: (id) =>
+                this.removeMessage(id)
         },
         methods: {
             flipShow() {
@@ -36,6 +41,9 @@ document.addEventListener('DOMContentLoaded', () => {
         },
         created() {
             this.flipShow()
+            EventHub.$on('clear-stack', function() {
+                this.flipShow
+            })
         },
         template: `
             <transition name="bounce">
@@ -69,7 +77,12 @@ document.addEventListener('DOMContentLoaded', () => {
         data() {
             return {
                 show: false,
+                clearAll: false,
             }
+        },
+        computed: {
+            clearStack: (id) =>
+                this.removeMessage(id)
         },
         methods: {
             flipShow() {
@@ -82,6 +95,9 @@ document.addEventListener('DOMContentLoaded', () => {
         },
         created() {
             this.flipShow()
+            EventHub.$on('clear-stack', function() {
+                this.show = !this.show
+            })
         },
         template: `
               <transition name="bounce">
@@ -114,7 +130,12 @@ document.addEventListener('DOMContentLoaded', () => {
         data() {
             return {
                 show: false,
+                clearAll: false,
             }
+        },
+        computed: {
+            clearStack: () =>
+                this.removeMessage()
         },
         methods: {
             flipShow() {
@@ -127,6 +148,9 @@ document.addEventListener('DOMContentLoaded', () => {
         },
         created() {
             this.flipShow()
+            EventHub.$on('clear-stack', function() {
+                this.flipShow
+            })
         },
         template: `
         <transition name="bounce">
@@ -156,8 +180,10 @@ document.addEventListener('DOMContentLoaded', () => {
             return {
                 user,
                 messages: [],
+                clearAll: false,
             };
         },
+
         methods: {
             fetchData(ping) {
                 if (ping.user_id == this.user) {
@@ -177,6 +203,14 @@ document.addEventListener('DOMContentLoaded', () => {
                 })
 
             },
+            clearStack() {
+                this.$refs.foo.forEach((msg) => msg.flipShow())
+                $.ajax({
+                    method: "put",
+                    url: `${BACKEND_URI}?id=${this.user}`
+                })
+            }
+
         },
         created() {
             EventHub.$on('socket-update', this.fetchData);
@@ -185,15 +219,15 @@ document.addEventListener('DOMContentLoaded', () => {
         },
         template: `
         <div>
-        <button class='btn btn-lg btn-block clear-btn'> Clear Stack </button>
+        <button @click ='clearStack' class='btn btn-lg btn-block clear-btn'> Clear Stack </button>
         <ul class='messages'>
           <li v-for="message in messages"  :key="message.id">
-              <GitHubEvent v-if="message.provider === 'github'" :message="message" :markAsComplete="markAsComplete" />
-              <GmailEvent v-if="message.provider === 'google_oauth2'" :message="message" :markAsComplete="markAsComplete" />
-              <SlackEvent v-if="message.provider === 'slack'" :message="message" :markAsComplete="markAsComplete" />
+              <GitHubEvent ref='foo' v-if="message.provider === 'github'" :message="message" :markAsComplete="markAsComplete"/>
+              <GmailEvent ref='foo' v-if="message.provider === 'google_oauth2'" :message="message" :markAsComplete="markAsComplete"/>
+              <SlackEvent ref='foo' v-if="message.provider === 'slack'" :message="message" :markAsComplete="markAsComplete"/> 
           </li>
         </ul>
-        </div
+        </div>
       `,
     })
 
