@@ -15,5 +15,12 @@ module GoogleHelper
       msg: payload,
     })
   end
+
+  def mark_as_complete(msg)
+    id = msg.user.identities.where(provider: 'google_oauth2').first
+    msg_id = msg.message['google_id']
+    service = GoogleService.new({id: id, msg_id: msg_id})
+    service.mark_message_as_read
+  end
   
 end

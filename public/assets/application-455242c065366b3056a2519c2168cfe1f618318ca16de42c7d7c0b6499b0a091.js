@@ -14697,17 +14697,31 @@ document.addEventListener('DOMContentLoaded', () => {
             markAsComplete: {
                 type: Function,
                 required: true,
-            }
+            },
+
         },
         data() {
             return {
                 show: false,
                 clearAll: false,
+                fullMessage: false,
             }
         },
         computed: {
-            clearStack: (id) =>
-                this.removeMessage(id)
+            messageBody: function() {
+                if (this.fullMessage) {
+                    return this.message.data
+                } else {
+                    return this.message.snippet
+                }
+            },
+            messageButton: function() {
+                if (this.fullMessage) {
+                    return 'Less'
+                } else {
+                    return 'More'
+                }
+            },
         },
         methods: {
             flipShow() {
@@ -14716,6 +14730,9 @@ document.addEventListener('DOMContentLoaded', () => {
             removeMessage(id) {
                 this.flipShow();
                 this.markAsComplete(id);
+            },
+            showFullMessage() {
+                this.fullMessage = !this.fullMessage
             },
         },
         created() {
@@ -14728,12 +14745,17 @@ document.addEventListener('DOMContentLoaded', () => {
             <transition name="bounce">
               <div class='message' v-if="show" >   
                   <div class='message-contents'>
+                  <div>
                     <h3>{{ message.event_type }}</h3> 
                     <p> Subject: {{ message.subject }} </p>
                     <p> From: {{ message.email_address}} </p>
-                    <p> Message: {{ message.snippet }} </p>
+                    <p class='email-body'> Message: {{ messageBody }} </p>
+                    </div>
+                    <div>
                     <button @click="removeMessage(message.id)">Completed</button>
                     <a href="https://www.gmail.com" target='blank' title='open gmail'><button tabindex='-1'>Gmail</button></a>
+                    <button @click="showFullMessage">{{messageButton}}</button>
+                    </div>
                   </div>
                   <img src=${GMAIL_IMG}>
               </div>
@@ -14782,11 +14804,15 @@ document.addEventListener('DOMContentLoaded', () => {
               <transition name="bounce">
                 <div class='message' v-if="show" >   
                   <div class='message-contents'>
+                      <div>
                       <h3>{{ message.event_type }}</h3> 
-                      <p> Message: {{ message.message_text }} </p>
-                      <p>sender: {{ message.message_sender}} </p>
+                      <p>Message: {{ message.message_text }} </p>
+                      <p>Sender: {{ message.message_sender}} </p>
+                      </div>
+                      <div>
                       <button @click="removeMessage(message.id)">Completed</button>
                       <a href="slack://open" target='parent' title='open slack'><button tabindex='-1'>Slack</button></a>
+                      </div>
                     </div>
                     <img src=${SLACK_IMG}>
                 </div>
@@ -14835,13 +14861,17 @@ document.addEventListener('DOMContentLoaded', () => {
         <transition name="bounce">
           <div class='message' v-if="show" >   
             <div class='message-contents'>
+                <div>
                 <h3>{{ message.event_type }}</h3> 
-                <p> Repo: {{ message.repo }} </p>
-                <p> Sender:{{ message.from }}</p> 
-                <p> Title:{{ message.title }}</p> 
-                <p v-if="message.action"> Action: {{message.action}} <p>
+                <p>Repo: {{ message.repo }} </p>
+                <p>Sender: {{ message.from }}</p> 
+                <p>Title: {{ message.title }}</p> 
+                <p v-if="message.action">Action: {{message.action}} </p>
+                </div>
+                <div>
                 <button @click="removeMessage(message.id)">Completed</button>
                 <a :href="message.link" target='blank' title='open github'><button tabindex='-1'>Github</button></a>
+                </div>
               </div>
               <img src=${GITHUB_IMG}>
           </div>

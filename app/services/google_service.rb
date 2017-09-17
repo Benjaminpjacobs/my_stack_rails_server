@@ -5,7 +5,7 @@ class GoogleService
     @request = args[:request] || nil
     @msg_id = args[:msg_id] || nil
   end
-
+  
   def check_for_expiration
     update_service if service_expired?
   end
@@ -45,7 +45,6 @@ class GoogleService
     service                         = gmail_service
     modify_request                  = Google::Apis::GmailV1::ModifyMessageRequest.new
     modify_request.remove_label_ids = ['UNREAD']
-    binding.pry
     service.modify_message('me', @msg_id, modify_request)
   end
 
