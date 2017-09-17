@@ -1,0 +1,46 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: https://my-stack-websocket.herokuapp.com/messages
+    body:
+      encoding: UTF-8
+      string: service_id=287&user_id=1064
+    headers:
+      User-Agent:
+      - Faraday v0.12.2
+      Content-Type:
+      - application/x-www-form-urlencoded
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Server:
+      - Cowboy
+      Connection:
+      - keep-alive
+      Set-Cookie:
+      - heroku-session-affinity=ACyDaANoA24IATmSsEz///8HYgAKOmZiAA6Rz2EBbAAAAAFtAAAABXdlYi4xav++rtUGUO4GEl2lbnSah3RDkbI4;
+        Version=1; Expires=Mon, 18-Sep-2017 17:45:10 GMT; Max-Age=86400; Domain=my-stack-websocket.herokuapp.com;
+        Path=/
+      X-Powered-By:
+      - Express
+      Content-Type:
+      - text/html
+      Date:
+      - Sun, 17 Sep 2017 17:45:10 GMT
+      Transfer-Encoding:
+      - chunked
+      Via:
+      - 1.1 vegur
+    body:
+      encoding: UTF-8
+      string: ''
+    http_version: 
+  recorded_at: Sun, 17 Sep 2017 17:45:10 GMT
+recorded_with: VCR 3.0.3
