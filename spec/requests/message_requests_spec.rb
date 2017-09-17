@@ -45,7 +45,7 @@ describe 'Pings' do
     end
   end
 
-  context 'POST messages' do
+  context 'PATCH messages' do
     it 'changes message status' do
       user    = create(:user)
       slack   = create(:service, name: 'slack')
@@ -81,7 +81,31 @@ describe 'Pings' do
       get "/pings/server?id=#{user.id}"
       data = JSON.parse(response.body)
       expect(data['messages'].length).to eq(3)
+    end
+  end
 
+  context "PUT Messages" do
+    it "clears all messages" do
+      user    = create(:user)
+      github  = create(:service, name: 'github')
+      slack   = create(:service, name: 'slack')
+      google  = create(:service, name: 'google')
+      
+      gh_pull         = create(:github_pull_request, service_id: github.id, user_id: user.id)
+      gh_issue        = create(:github_issue, service_id: github.id, user_id: user.id)
+      slack_message   = create(:slack_message, service_id: slack.id, user_id: user.id)
+      google_message  = create(:google_message, service_id: google.id, user_id: user.id)   
+      
+      get "/pings/server?id=#{user.id}"
+      data = JSON.parse(response.body)
+      expect(data['messages'].length).to eq(4)
+      
+      expect(Message.count).to eq(4)
+
+      put "/pings/server?id=#{user.id}"
+
+      expect(user.messages.pluck(:status).uniq.count).to eq(1)
+      expect(user.messages.pluck(:status).uniq.first).to eq("archived")
     end
   end
 end
