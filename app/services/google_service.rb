@@ -3,6 +3,7 @@ class GoogleService
   def initialize(args)
     @id = args[:id] || nil
     @request = args[:request] || nil
+    @msg_id = args[:msg_id] || nil
   end
 
   def check_for_expiration
@@ -38,6 +39,14 @@ class GoogleService
     messages  = service.list_user_messages('me')
     msg_id    = messages.messages.first.id
     service.get_user_message('me', msg_id)
+  end
+
+  def mark_message_as_read
+    service                         = gmail_service
+    modify_request                  = Google::Apis::GmailV1::ModifyMessageRequest.new
+    modify_request.remove_label_ids = ['UNREAD']
+    binding.pry
+    service.modify_message('me', @msg_id, modify_request)
   end
 
   def push_notification_email
