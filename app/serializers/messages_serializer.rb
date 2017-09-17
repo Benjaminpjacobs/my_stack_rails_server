@@ -1,5 +1,5 @@
 class MessagesSerializer < ActiveModel::Serializer
-  attributes :repo, :from, :link, :event_type, :id, :provider, :message_text, :message_sender, :snippet, :email_address, :subject, :title, :body, :action
+  attributes :repo, :from, :link, :event_type, :id, :provider, :message_text, :message_sender, :snippet, :email_address, :subject, :title, :body, :action, :data
 
   def provider
     object.service.name
@@ -28,6 +28,10 @@ class MessagesSerializer < ActiveModel::Serializer
 
   def action
     object.message['action']
+  end
+
+  def data
+    object.message['full_message']
   end
 
   def from

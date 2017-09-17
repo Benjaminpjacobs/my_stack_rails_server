@@ -99,6 +99,12 @@ img {
     box-shadow: 10px 10px 5px #888888;
     .message-contents {
         max-width: 600px;
+        display: flex;
+        flex-direction: column;
+    }
+    .email-body {
+        width: 60%;
+        overflow: hidden;
     }
     h3 {
         font-size: 1.2em;
