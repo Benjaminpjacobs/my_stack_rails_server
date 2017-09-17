@@ -54,7 +54,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     <p> From: {{ message.email_address}} </p>
                     <p> Message: {{ message.snippet }} </p>
                     <button @click="removeMessage(message.id)">Completed</button>
-                    <a href="https://www.gmail.com" target='blank'><button>Gmail</button></a>
+                    <a href="https://www.gmail.com" target='blank' title='open gmail'><button tabindex='-1'>Gmail</button></a>
                   </div>
                   <img src=${GMAIL_IMG}>
               </div>
@@ -107,7 +107,7 @@ document.addEventListener('DOMContentLoaded', () => {
                       <p> Message: {{ message.message_text }} </p>
                       <p>sender: {{ message.message_sender}} </p>
                       <button @click="removeMessage(message.id)">Completed</button>
-                      <a href="slack://open" target='blank'><button>Slack</button></a>
+                      <a href="slack://open" target='parent' title='open slack'><button tabindex='-1'>Slack</button></a>
                     </div>
                     <img src=${SLACK_IMG}>
                 </div>
@@ -160,7 +160,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 <p> Repo: {{ message.repo }} </p>
                 <p> Sender:{{ message.from }}</p> 
                 <button @click="removeMessage(message.id)">Completed</button>
-                <a :href="message.link" target='blank'><button>Github</button></a>
+                <a :href="message.link" target='blank' title='open github'><button tabindex='-1'>Github</button></a>
               </div>
               <img src=${GITHUB_IMG}>
           </div>
