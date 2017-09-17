@@ -10,8 +10,7 @@ class Pings::MessagesController < ActionController::Base
   end
 
   def clear_stack
-    current_user.messages.update_all(status: 2)
-    service = WebsocketService.new
-    service.post_message({user_id: current_user.id, service_id: nil})
+    user = User.where(id: params[:id]).first
+    user.messages.update_all(status: 2) if user
   end
 end

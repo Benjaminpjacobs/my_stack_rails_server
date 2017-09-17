@@ -14,9 +14,7 @@ class GoogleService
   end
 
   def push_notification_id
-    if @user 
-      @id = @user.identities.where(provider: 'google_oauth2').first
-    end
+    @id = @user.identities.where(provider: 'google_oauth2').first if @user
   end
 
   def client(token)
@@ -30,8 +28,8 @@ class GoogleService
   end
 
   def gmail_service
-    token = Token.new(id)
-    client = client(token)
+    token   = Token.new(id)
+    client  = client(token)
     service(client)
   end
 
