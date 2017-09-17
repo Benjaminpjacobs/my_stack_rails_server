@@ -1,12 +1,13 @@
 <div class='header'>
     <%= render partial: 'shared/header' %>
-        <%= render partial: 'shared/nav_buttons' %>
+    <%= render partial: 'shared/nav_buttons' %>
 
 </div>
 
 <div id='app-messages' data-id=<%=current_user.id%> data-url=
-    <%=@msg_url%> data-socket=
-        <%=@socket_url%> data-ghimage=
-            <%=asset_url('octoCat.png')%> data-slackimage=
-                <%=asset_url('slack_icon.png')%> data-gmail=
-                    <%=asset_url('inboxLogo.png')%>></div>
+  <%=@msg_url%> data-socket=
+  <%=@socket_url%> data-ghimage=
+  <%=asset_url('octoCat.png')%> data-slackimage=
+  <%=asset_url('slack_icon.png')%> data-gmail=
+  <%=asset_url('inboxLogo.png')%>>
+</div>
