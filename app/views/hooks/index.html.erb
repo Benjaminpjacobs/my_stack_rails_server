@@ -100,7 +100,7 @@
                 <span class="fa fa-twitter"></span> Delete Twitter Hooks
               </button>
             <%end%>
-          <%elsif%>
+          <%elsif @hooks_presenter.twitter%>
           <%= link_to '/'  do %>
             <button class= "btn btn-lg btn-block btn-social btn-twitter" tabindex='-1'>
               <span class="fa fa-twitter"></span> Set Twitter Hooks
