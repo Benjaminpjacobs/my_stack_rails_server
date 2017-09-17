@@ -90,22 +90,28 @@ describe 'Pings' do
       github  = create(:service, name: 'github')
       slack   = create(:service, name: 'slack')
       google  = create(:service, name: 'google')
+      user2    = create(:user)
       
-      gh_pull         = create(:github_pull_request, service_id: github.id, user_id: user.id)
-      gh_issue        = create(:github_issue, service_id: github.id, user_id: user.id)
-      slack_message   = create(:slack_message, service_id: slack.id, user_id: user.id)
-      google_message  = create(:google_message, service_id: google.id, user_id: user.id)   
+      create(:github_pull_request, service_id: github.id, user_id: user.id)
+      create(:github_issue, service_id: github.id, user_id: user.id)
+      create(:slack_message, service_id: slack.id, user_id: user.id)
+      create(:google_message, service_id: google.id, user_id: user.id)  
+      create(:github_pull_request, service_id: github.id, user_id: user2.id)
+      create(:github_issue, service_id: github.id, user_id: user2.id)
+      create(:slack_message, service_id: slack.id, user_id: user2.id)
+      create(:google_message, service_id: google.id, user_id: user2.id)  
+      
       
       get "/pings/server?id=#{user.id}"
       data = JSON.parse(response.body)
       expect(data['messages'].length).to eq(4)
       
-      expect(Message.count).to eq(4)
-
       put "/pings/server?id=#{user.id}"
 
       expect(user.messages.pluck(:status).uniq.count).to eq(1)
       expect(user.messages.pluck(:status).uniq.first).to eq("archived")
+      expect(user2.messages.pluck(:status).uniq.count).to eq(1)
+      expect(user2.messages.pluck(:status).uniq.first).to eq("received")
     end
   end
 end
