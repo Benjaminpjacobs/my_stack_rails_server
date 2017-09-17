@@ -13,7 +13,6 @@ Devise.setup do |config|
   # note that it will be overwritten if you use your own mailer class
   # with default "from" parameter.
   config.mailer_sender = 'please-change-me-at-config-initializers-devise@example.com'
-
   config.omniauth :github, ENV['GITHUB_KEY'], ENV['GITHUB_SECRET'],scope: "repo,admin:repo_hook"
   config.omniauth :google_oauth2, ENV['GOOGLE_ID'], ENV['GOOGLE_SECRET'],{
     scope: "https://www.google.com/calendar/feeds/ https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/auth/userinfo.profile https://www.googleapis.com/auth/calendar, https://mail.google.com/"

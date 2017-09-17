@@ -21,6 +21,7 @@ class UsersController < ApplicationController
   end
 
   def finish_signup
+    binding.pry
     if request.patch? && params[:user]
       if @user.update(user_params)
         sign_in(@user, :bypass => true)
