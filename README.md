@@ -1,4 +1,4 @@
-## MyStack: All the feeds you need (https://travis-ci.org/Benjaminpjacobs/my_stack_rails_server.svg?branch=master) 
+## MyStack: All the feeds you need ![Travis Badge](https://travis-ci.org/Benjaminpjacobs/my_stack_rails_server.svg?branch=master) 
 
 ### Developer 
 Benjamin Jacobs
