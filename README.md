@@ -22,7 +22,7 @@ If you are interested in running myStack in a local development environment then
 * bundle install
 * rake db:setup
 
-This will get the basic development environment setup for you. In addition you will need to configure some external services in order to interact with realtime notifications. You will need to register an application with [Google](https://developers.google.com/actions/identity/oauth2-code-flow), [Slack](https://api.slack.com/docs/oauth), [Github](https://developer.github.com/apps/building-integrations/setting-up-and-registering-oauth-apps/) and [Facebook] (https://developers.facebook.com/docs/facebook-login/web/)(See issues/feature development) in order to obtain Client IDs and Secrets and have OAuth work correctly. Additionally you will have to setup (Google pub/sub/hub)[https://developers.google.com/gmail/api/guides/push] in order to get those push notifications working. After you have obtained these credentials:
+This will get the basic development environment setup for you. In addition you will need to configure some external services in order to interact with realtime notifications. You will need to register an application with [Google](https://developers.google.com/actions/identity/oauth2-code-flow), [Slack](https://api.slack.com/docs/oauth), [Github](https://developer.github.com/apps/building-integrations/setting-up-and-registering-oauth-apps/) and [Facebook](https://developers.facebook.com/docs/facebook-login/web/)(See issues/feature development) in order to obtain Client IDs and Secrets and have OAuth work correctly. Additionally you will have to setup [Google pub/sub/hub](https://developers.google.com/gmail/api/guides/push) in order to get those push notifications working. After you have obtained these credentials:
 
 * fiagro install
 
@@ -46,11 +46,11 @@ development:
   FACEBOOK_TOKEN: xxxxxxxxxxxxxxxxxxxxxxxxxxxxx
   FACEBOOK_APP_ACCESS_TOKEN: xxxxxxxxxxxxxxxxxxxxxxxxxxxxx
   ```
-You will also need something like (ngrok)[https://gist.github.com/wosephjeber/aa174fb851dfe87e644e] in order to expose your local host to the web. Once installed run `ngrok` in a terminal pain and replace `https://dc62eae5.ngrok.io` in the github webhook url with your own ngrok address. This will similarly be the development url you will use for google pub/sub as well as facebook and slack push notifications when you configure those settings.
+You will also need something like [ngrok](https://gist.github.com/wosephjeber/aa174fb851dfe87e644e) in order to expose your local host to the web. Once installed run `ngrok` in a terminal pain and replace `https://dc62eae5.ngrok.io` in the github webhook url with your own ngrok address. This will similarly be the development url you will use for google pub/sub as well as facebook and slack push notifications when you configure those settings.
 
 Once this is all configured you can run `rails s` and get your local server running. Navigate to `http://localhost:3000` and you should see the myStack entrace page which is comprised of OAuth links to various services. Here you can log into your accounts(or mock accounts) and play with the real time notification elements. 
 
-Note that the separate Express socket server will still work for your local environment remotely, but if for any reason you'd like to run that locally as well simply navigate (this repo)[https://github.com/Benjaminpjacobs/my_stack_express_server], clone down and npm start. However, you will have to change the pointers within this app to look at your local development enviornment.
+Note that the separate Express socket server will still work for your local environment remotely, but if for any reason you'd like to run that locally as well simply navigate [this repo](https://github.com/Benjaminpjacobs/my_stack_express_server), clone down and npm start. However, you will have to change the pointers within this app to look at your local development enviornment.
 
 ### Current Issues - Future Features
 
