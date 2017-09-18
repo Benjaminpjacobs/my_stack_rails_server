@@ -12,7 +12,7 @@ In the modern digital age there are many feeds to track. Items such as pull requ
 
 ### The Stack's Stack
 
-At its core this project is a Rails 5 application. It utilizes a postegres database for users, messages and services. Aside from rails views Vue.js is the heart of the main application page allowing for interactivity and a fluid realtime UI. Also serving this application is a [separate Node.js running an Express service](https://github.com/Benjaminpjacobs/my_stack_express_server). This separate service keep the open socket connection between the server and view for the delivery of messages to front end in real time without a reload. 
+At its core this project is a Rails 5 application. It utilizes a postegres database for users, messages and services. Aside from rails views Vue.js is the heart of the main application page allowing for interactivity and a fluid realtime UI. Also serving this application is a separate Node.js running an [Express service](https://github.com/Benjaminpjacobs/my_stack_express_server). This separate service keep the open socket connection between the server and view for the delivery of messages to front end in real time without a reload. 
 
 ### To Run Locally
 
@@ -22,7 +22,7 @@ If you are interested in running myStack in a local development environment then
 * bundle install
 * rake db:setup
 
-This will get the basic development environment setup for you. In addition you will need to configure some external services in order to interact with realtime notifications. You will need to register an application with (Google)[https://developers.google.com/actions/identity/oauth2-code-flow], (Slack)[https://api.slack.com/docs/oauth], (Github)[https://developer.github.com/apps/building-integrations/setting-up-and-registering-oauth-apps/] and [Facebook](https://developers.facebook.com/docs/facebook-login/web/)(See issues/feature development) in order to obtain Client IDs and Secrets and have OAuth work correctly. Additionally you will have to setup (Google pub/sub/hub)[https://developers.google.com/gmail/api/guides/push] in order to get those push notifications working. After you have obtained these credentials:
+This will get the basic development environment setup for you. In addition you will need to configure some external services in order to interact with realtime notifications. You will need to register an application with [Google](https://developers.google.com/actions/identity/oauth2-code-flow), [Slack](https://api.slack.com/docs/oauth), [Github](https://developer.github.com/apps/building-integrations/setting-up-and-registering-oauth-apps/) and [Facebook] (https://developers.facebook.com/docs/facebook-login/web/)(See issues/feature development) in order to obtain Client IDs and Secrets and have OAuth work correctly. Additionally you will have to setup (Google pub/sub/hub)[https://developers.google.com/gmail/api/guides/push] in order to get those push notifications working. After you have obtained these credentials:
 
 * fiagro install
 
