@@ -31,7 +31,7 @@ RSpec.describe Identity do
     end
 
     it "create id if it does not exist and doesn't save if new record" do
-      expect(Identity.count).to eq(2)
+      expect(Identity.count).to eq(1)
 
       id = Identity.find_for_oauth(@auth_mock_id)
 
@@ -41,7 +41,7 @@ RSpec.describe Identity do
       expect(id.refresh_token).to eq(@temp.refresh_token)
       expect(id.expires_at).to eq(@temp.expires_at)
 
-      expect(Identity.count).to eq(2)
+      expect(Identity.count).to eq(1)
     end
 
     it "finds identity if it exists" do
@@ -54,7 +54,7 @@ RSpec.describe Identity do
       expect(id.refresh_token).to eq(@id.refresh_token)
       expect(id.expires_at).to eq(@id.expires_at)
 
-      expect(Identity.count).to eq(2)
+      expect(Identity.count).to eq(1)
     end
 
   end

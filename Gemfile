@@ -57,7 +57,9 @@ group :development, :test do
   gem 'pry-rails'
   gem 'vcr'
   gem 'webmock'
+  gem 'database_cleaner'
 end
+
 
 group :development do
   gem 'web-console', '>= 3.3.0'

@@ -42,9 +42,9 @@ RSpec.describe User do
           )
         )
       )
-      expect(User.count).to eq(1)
+      expect(User.count).to eq(0)
       user = User.find_for_oauth(@auth_mock_temp)
-      expect(User.count).to eq(2)
+      expect(User.count).to eq(1)
     end
   end
 end
