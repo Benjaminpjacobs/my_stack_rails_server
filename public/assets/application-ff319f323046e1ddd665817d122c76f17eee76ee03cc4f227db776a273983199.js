@@ -14915,7 +14915,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
             },
             clearStack() {
-                this.$refs.foo.forEach((msg) => msg.flipShow())
+                this.$refs.foo.forEach((msg) => {
+                    if (msg.show) { msg.flipShow() }
+                })
                 $.ajax({
                     method: "put",
                     url: `${BACKEND_URI}?id=${this.user}`
