@@ -1,7 +1,6 @@
 ## MyStack: All the feeds you need ![Travis Badge](https://travis-ci.org/Benjaminpjacobs/my_stack_rails_server.svg?branch=master) 
 
-### Developer 
-Benjamin Jacobs
+![alt text](https://raw.githubusercontent.com/Benjaminpjacobs/my_stack_rails_server/master/images/myStackSS.png)
 
 ### Summary 
 A feed amalgamator that can be tailored to user preferences.
