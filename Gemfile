@@ -40,6 +40,7 @@ gem 'omniauth-slack'
 gem 'omniauth-facebook'
 gem 'google-cloud'
 gem 'figaro'
+gem 'sidekiq'
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 gem 'kaminari'
 gem 'haml'
