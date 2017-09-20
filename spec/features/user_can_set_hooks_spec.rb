@@ -2,6 +2,8 @@ require 'rails_helper'
 
 RSpec.describe "Login" do
   include Devise::Test::IntegrationHelpers
+  include ActiveJob::TestHelper
+
   describe "as a user" do
     context "it sees correct options"do
       it "when logged in with github" do
@@ -50,6 +52,7 @@ RSpec.describe "Login" do
     
     context "it can set and delete hooks" do
       it "for github" do 
+        ActiveJob::Base.queue_adapter = :test
         allow_any_instance_of(GithubService).to receive(:set_all_web_hooks).and_return(true)
         allow_any_instance_of(GithubService).to receive(:delete_all_web_hooks).and_return(true)
 
@@ -64,10 +67,12 @@ RSpec.describe "Login" do
         expect(current_path).to eq(hooks_path)
         expect(page).to have_content('Delete Github Hooks')
         expect(page).to have_content('Update Github Hooks')
-
+        
         click_link 'Delete Github Hooks'
         expect(current_path).to eq(hooks_path)
         expect(page).to have_content('Set Github Hooks')
+
+        expect(GithubHooksJob).to have_been_enqueued.exactly(:twice)
       end
 
       it "for google" do 
