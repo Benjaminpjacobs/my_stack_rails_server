@@ -64,3 +64,5 @@ At this stage of development OAuth is configured for Slack, Gmail, Google and Fa
   * Allow for gmail responses from within the app
   * Allow for remote approval of pull requests(This would probably require more verbose information on the PR in order to be    useful)
 * Include a user dashboard with would offer interesting statistics on message frequency, volume, etc.
+
+
