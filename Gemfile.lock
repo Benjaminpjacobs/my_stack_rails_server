@@ -249,6 +249,10 @@ GEM
       activerecord
       kaminari-core (= 1.0.1)
     kaminari-core (1.0.1)
+    koala (1.10.1)
+      addressable
+      faraday
+      multi_json
     launchy (2.4.3)
       addressable (~> 2.3)
     listen (3.1.5)
@@ -470,6 +474,7 @@ DEPENDENCIES
   jbuilder (~> 2.5)
   jquery-rails
   kaminari
+  koala (~> 1.10.0rc)
   launchy
   listen (>= 3.0.5, < 3.2)
   omniauth

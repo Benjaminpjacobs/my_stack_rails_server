@@ -48,6 +48,7 @@ gem 'haml'
 gem 'erb2haml', group: :development
 gem 'jquery-rails'
 gem 'active_model_serializers', '~> 0.9.3'
+gem "koala", "~> 1.10.0rc"
 
 group :development, :test do
   gem 'capybara', '~> 2.13'
