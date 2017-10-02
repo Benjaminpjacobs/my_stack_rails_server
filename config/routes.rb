@@ -29,6 +29,7 @@ Rails.application.routes.draw do
     
     namespace :facebook do
       post '/reception', to: 'reception#received'
+      get '/reception', to: 'reception#challenge'
     end
     
     namespace :github do

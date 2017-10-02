@@ -19,6 +19,8 @@ Devise.setup do |config|
   }
   config.omniauth :slack, ENV['SLACK_APP_ID'], ENV['SLACK_APP_SECRET'], scope: 'users:read,users:read.email,users.profile:read', team: 'Turing'
   config.omniauth :facebook, ENV['FACEBOOK_ID'], ENV['FACEBOOK_SECRET'],scope: 'email,user_posts,user_events', info_fields: 'email,name'
+
+  config.omniauth :twitter, ENV['TWITTER_KEY'], ENV['TWITTER_SECRET']
   # Configure the class responsible to send e-mails.
   # config.mailer = 'Devise::Mailer'
 
