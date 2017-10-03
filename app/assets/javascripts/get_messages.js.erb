@@ -4,6 +4,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const GITHUB_IMG = document.querySelector('#app-messages').dataset.ghimage;
     const SLACK_IMG = document.querySelector('#app-messages').dataset.slackimage;
     const GMAIL_IMG = document.querySelector('#app-messages').dataset.gmail;
+    const FACEBOOK_IMG = document.querySelector('#app-messages').dataset.facebook;
     const user = document.querySelector('#app-messages').dataset.id;
 
     const EventHub = new Vue({});
@@ -140,6 +141,61 @@ document.addEventListener('DOMContentLoaded', () => {
               </transition>
           `
     }
+    const FacebookEvent = {
+        name: 'FacebookEvent',
+        props: {
+            message: {
+                type: Object,
+                required: true,
+            },
+            markAsComplete: {
+                type: Function,
+                required: true,
+            }
+        },
+        data() {
+            return {
+                show: false,
+                clearAll: false,
+            }
+        },
+        computed: {
+            clearStack: (id) =>
+                this.removeMessage(id)
+        },
+        methods: {
+            flipShow() {
+                this.show = !this.show
+            },
+            removeMessage(id) {
+                this.flipShow();
+                this.markAsComplete(id);
+            },
+        },
+        created() {
+            this.flipShow()
+            EventHub.$on('clear-stack', function() {
+                this.show = !this.show
+            })
+        },
+        template: `
+            <transition name="bounce">
+              <div class='message' v-if="show" >   
+                <div class='message-contents'>
+                    <div>
+                    <h3>{{ message.event_type }}</h3> 
+                    <p>Message: {{ message.feed_message }} </p>
+                    </div>
+                    <div>
+                    <button @click="removeMessage(message.id)">Completed</button>
+                    <a href="https://www.facebook.com" target='blank' title='open facebook'><button tabindex='-1'>Facebook</button></a>
+                    </div>
+                  </div>
+                  <img src=${FACEBOOK_IMG}>
+              </div>
+            </transition>
+        `
+    }
 
     const GitHubEvent = {
         name: 'GitHubEvent',
@@ -207,6 +263,7 @@ document.addEventListener('DOMContentLoaded', () => {
             GitHubEvent,
             SlackEvent,
             GmailEvent,
+            FacebookEvent,
         },
         data() {
             return {
@@ -259,6 +316,7 @@ document.addEventListener('DOMContentLoaded', () => {
               <GitHubEvent ref='foo' v-if="message.provider === 'github'" :message="message" :markAsComplete="markAsComplete"/>
               <GmailEvent ref='foo' v-if="message.provider === 'google_oauth2'" :message="message" :markAsComplete="markAsComplete"/>
               <SlackEvent ref='foo' v-if="message.provider === 'slack'" :message="message" :markAsComplete="markAsComplete"/> 
+              <FacebookEvent ref='foo' v-if="message.provider === 'facebook'" :message="message" :markAsComplete="markAsComplete"/> 
           </li>
         </ul>
         </div>
